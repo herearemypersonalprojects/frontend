@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    
+    <!-- GOOGLE MAP -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+          
+    <!-- JQUERY -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+      
+    <!-- JQUERY UI 
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    
+    <!-- MICROSOFT
+    <script src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
+      
+    <!-- EASYUI 
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/icon.css">
+  
+    <!-- MY CSS -->
+    <link rel="stylesheet" href="css/form.css">  
+    <link rel="stylesheet" type="text/css" href="css/map.css">
+      
+    <!-- MY JAVASCRIPTS -->
+    <script src="js/map.js"></script>
+    <script src="js/place.js"></script>  
+      
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+    <button id="new-place" type="button">Thêm địa điểm</button>
+     
+    
+    <form id="new-place-form" action="form1_proc.php" method="post" enctype="multipart/form-data">
+        <button id="new-place-form-close" style="float: right;" type="button">x</button>
+        <table>
+            <!--
+            <tr>
+                <td>Đất nước:</td>
+                <td>        
+                    <select onchange="print_state('state',this.selectedIndex);" id="country" name ="country">
+                    </select>               
+                </td>
+            </tr>
+            <tr>
+                <td>Thành phố:</td>
+                <td>        
+                    <select name ="state" id ="state"></select>                
+                </td>
+            </tr>
+            -->
+            <tr>
+                <td>Tên địa điểm:</td>
+                <td><input id="title" placeholder="nhập vào tiêu đề"/></td>
+            </tr>            
+            <tr>
+                <td>Địa chỉ:</td>
+                <td><input id="addressInput" name="address" onFocus="geolocate()" type="text"
+                               size="30" placeholder="nhập vào số nhà, tên đường phố"></input></td>
+            </tr>
+            <tr>
+                <td>Thông tin:</td>
+                <td><textarea id="information" name="information" type="text" rows="2" cols="30"
+                               placeholder="nhập thông tin chi tiết"></textarea></td>
+            </tr>
+            <tr>
+                <td>File:</td>
+                <td><input type="file" name="pic" accept="image/*"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Submit"></input></td>
+
+            </tr>
+        </table>
+    </form>
+
+  </body>
+</html>
+
+
