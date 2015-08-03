@@ -38,7 +38,7 @@
     <button id="new-place" type="button">Thêm địa điểm</button>
      
     
-    <form id="new-place-form" action="form1_proc.php" method="post" enctype="multipart/form-data">
+    <form id="new-place-form" action="http://localhost:2011/place" method="POST" enctype="multipart/form-data">
         <button id="new-place-form-close" style="float: right;" type="button">x</button>
         <table>
             <!--
@@ -58,25 +58,54 @@
             -->
             <tr>
                 <td>Tên địa điểm:</td>
-                <td><input id="title" placeholder="nhập vào tiêu đề"/></td>
+                <td><input required id="title" placeholder="nhập vào tên địa điểm" size="30" value="title"/></td>
             </tr>            
             <tr>
                 <td>Địa chỉ:</td>
                 <td><input id="addressInput" name="address" onFocus="geolocate()" type="text"
-                               size="30" placeholder="nhập vào số nhà, tên đường phố"></input></td>
+                               size="30" placeholder="nhập vào số nhà, tên đường, thành phố, quốc gia"></input></td>
+                <input type="text" id="address" name="address" value="sdf"></input>
+                <input type="text" id="country" name="country" value="sfsd"></input>
+                <input type="text" id="city" name="city" value="sjd"></input>
+                <input type="text" id="latitude" name="latitude" value="30">
+                <input type="text" id="longitude" name="longitude" value="34">
+            </tr>                   
+            
+            <tr>
+                <td>Điện thoại</td>    
+                <td><input id="telephone" name="telephone" type="text" size="30" placeholder="điện thoại liên hệ"></input></td>
             </tr>
             <tr>
-                <td>Thông tin:</td>
+                <td>Giờ mở cửa</td>
+                <td><input id="openTime" name="openTime" type="text" size="30" placeholder="nhập giờ mở cửa"></input></td>
+            </tr>
+            <tr>
+                <td>Trang web</td>    
+                <td><input id="referenceUrl" name="referenceUrl" type="text" size="30" placeholder="nhập đường link tới trang web"></input></td>
+            </tr>
+            <tr>
+                <td>Thông tin chung:</td>
                 <td><textarea id="information" name="information" type="text" rows="2" cols="30"
                                placeholder="nhập thông tin chi tiết"></textarea></td>
             </tr>
+            <!--
             <tr>
-                <td>File:</td>
+                <td>Ảnh chụp:</td>
                 <td><input type="file" name="pic" accept="image/*"></td>
+            </tr>
+            -->
+            <tr>
+                <td><input type="text" id="communityCode" name="communityCode" value="vietnam"></td>                
+            </tr>
+            <tr>
+                <td><input type="text" id="placeType" name="placeType" value="restaurant"></td>    
+            </tr>
+            <tr>
+                <td><input type="text" id="createdFromIp" name="createdFromIp"></td>
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit" value="Submit"></input></td>
+                <td><input type="submit" id="submit1" value="Submit"></input></td>
 
             </tr>
         </table>

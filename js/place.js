@@ -36,4 +36,27 @@ $(function () {
     $('#new-place-form-close').click(function() {
         $('#new-place-form').hide();
     });
+    
+    $('#submit').click(function() {
+        $.ajax({
+          url: 'http://localhost:2011/place',
+          type: 'POST',
+          dataType: 'jsonp',
+          data: JSON.stringify({
+              "title":"Pho 14", 
+              "information":"Quan pho", 
+              "country":"France", 
+              "city":"Paris",
+              "address":"20 avenue de choisy",
+              "latitude": 103, 
+              "longitude":323,
+              "communityCode":"vietnam",
+              "placeType":"restaurant"              
+          }),
+          contentType: 'application/json',
+          success: function(got) {
+            return alert("Cảm ơn bạn đã đóng góp thông tin: " + got.id);
+          }
+        });
+    });
 });
