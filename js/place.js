@@ -22,19 +22,18 @@ function loadPlaces() {
 
 // New place
 $(function () {
-
-
+    $('#new-place-form').hide();
     $('#new-place').click(function() {
         //print_country("country");
         //print_state('state', 75);
         //$('#country').val('France');
         //$('#state').val('Paris');
-    
-        $('#new-place-form').show();
+        $('#new-place-form')[0].reset();
+        $('#new-place-form').show();        
     });
     
     $('#new-place-form-close').click(function() {
-        $('#new-place-form').hide();
+        
     });
     
     $('#submit').click(function() {
