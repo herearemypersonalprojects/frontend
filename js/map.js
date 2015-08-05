@@ -66,6 +66,7 @@ function initialize() {
     //});
     //status_changed
     //map.controls[google.maps.ControlPosition.RIGHT].push(autocomplete);
+    loadPlaces();
 } // [END initialize]
 
 

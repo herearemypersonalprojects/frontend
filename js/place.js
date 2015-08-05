@@ -1,13 +1,10 @@
 // load place from database
 function loadPlaces() {
-
-    $.getJSON('/maps/getServices', function(data){
-
+    $.getJSON('localhost:2011/places', function(data){
+        alert('ok');
         $(data).each(function(idx, item){
-            var number = 10 + Math.floor(Math.random() * 100);
-               // console.log(idx + ': ' + item + ' : ' + item.info + ' : ' + item.latitude + ' : ' + item.longitude);
-
-            var content ='<div id="div-main-infoWindow">'+item.info+'</div>';
+            
+            var content ='<div id="div-main-infoWindow">'+item.title+'</div>';
 
             var servicePos = new google.maps.LatLng(item.latitude, item.longitude);
 
@@ -33,29 +30,8 @@ $(function () {
     });
     
     $('#new-place-form-close').click(function() {
-        
+        $('#new-place-form').hide();    
     });
     
-    $('#submit').click(function() {
-        $.ajax({
-          url: 'http://localhost:2011/place',
-          type: 'POST',
-          dataType: 'jsonp',
-          data: JSON.stringify({
-              "title":"Pho 14", 
-              "information":"Quan pho", 
-              "country":"France", 
-              "city":"Paris",
-              "address":"20 avenue de choisy",
-              "latitude": 103, 
-              "longitude":323,
-              "communityCode":"vietnam",
-              "placeType":"restaurant"              
-          }),
-          contentType: 'application/json',
-          success: function(got) {
-            return alert("Cảm ơn bạn đã đóng góp thông tin: " + got.id);
-          }
-        });
-    });
+
 });
