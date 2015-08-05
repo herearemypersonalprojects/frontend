@@ -43,6 +43,7 @@
     <iframe name="hiddenFrame" class="hide"></iframe>  
     
     <form id="new-place-form" action="http://62.210.116.18:2011/place" method="POST" enctype="multipart/form-data" >
+       <fieldset>
         <button id="new-place-form-close" style="float: right;" type="button">x</button>
         <table>
             <!--
@@ -68,7 +69,8 @@
                 <td>Địa chỉ:</td>
                 <td><input required id="addressInput" name="address" onFocus="geolocate()" type="text"
                                size="30" placeholder="nhập vào số nhà, tên đường, thành phố, quốc gia" title="Hãy nhập địa chỉ"></input></td>
-                <input type="hidden" id="street_number" name="streetNumber"></input>
+                <td>
+                <input type="hidden" id="street_number" name="streetNumber" />
                 <input type="hidden" id="route" name="route"></input>             
                 <input type="hidden" id="locality" name="city"></input>
                 <input type="hidden" id="postal_code" name="postalCode"></input>
@@ -76,6 +78,7 @@
                 
                 <input type="hidden" id="latitude" name="latitude" value="30"></input>
                 <input type="hidden" id="longitude" name="longitude" value="34"></input>
+               </td> 
             </tr>          
             <!--
                 <tr>
@@ -123,7 +126,7 @@
             </tr>
             <tr>
                 <td>Thông tin chung:</td>
-                <td><textarea id="information" name="information" type="text" rows="2" cols="30"
+                <td><textarea id="information" name="information" rows="2" cols="30"
                                placeholder="nhập thông tin chi tiết"></textarea></td>
             </tr>
             <!--
@@ -144,6 +147,7 @@
 
             </tr>
         </table>
+       </fieldset> 
     </form>
 
   </body>
