@@ -39,24 +39,4 @@ $(function () {
 			    }
 			  });			
 	}
-	
-	// [START loadPlaces]
-	//load place from database
-	function loadPlaces() {
-	    $.getJSON('localhost:2011/places', function(data){
-	        alert('ok');
-	        $(data).each(function(idx, item){
-	            
-	            var content ='<div id="div-main-infoWindow">'+item.title+'</div>';
-
-	            var servicePos = new google.maps.LatLng(item.latitude, item.longitude);
-
-	            infowindow = new google.maps.InfoWindow({
-	                map: map,
-	                position: servicePos,
-	                content:  content//.substring(0, 50)
-	            });
-	        });
-	    });
-	} // [END loadPlaces]	
 });

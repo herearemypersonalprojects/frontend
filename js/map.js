@@ -15,6 +15,7 @@ var componentForm = {
     postal_code: 'short_name'
 };
 
+// Extract city, country from address input by user when creating a new place
 $(function () {
     $('#addressInput').blur(function() {           
         geocoder.geocode({ 'address': $('#addressInput').val() }, function (results, status) {
@@ -67,8 +68,35 @@ function initialize() {
     //status_changed
     //map.controls[google.maps.ControlPosition.RIGHT].push(autocomplete);
     loadPlaces();
+    
 } // [END initialize]
 
+// [START loadPlaces]
+//load place from database
+function loadPlaces() {
+	  $.ajax({
+		    type: "get", 
+		    url: "http://localhost:2011/places",
+		    success: function (data) {		        
+		        $(data).each(function(idx, item){
+		            
+		            var content ='<div id="div-main-infoWindow">'+item.title+'</div>';
+
+		            var servicePos = new google.maps.LatLng(item.latitude, item.longitude);
+
+		            infowindow = new google.maps.InfoWindow({
+		                map: map,
+		                position: servicePos,
+		                content:  content//.substring(0, 50)
+		            });
+		        });
+		    },
+		    error: function (request, status, error) {
+		        alert(request.responseText + ":" + status + ":" + error);
+		    }
+		});
+
+} // [END loadPlaces]	
 
 // [START region_fillform]
 function fillInAddress() {
