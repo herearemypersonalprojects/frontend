@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Simple Map</title>
+      <title>Việt Nam thân yêu</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     
     <!-- GOOGLE MAP -->
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;language=vi&amp;v=3.exp&libraries=places"></script>
+      <script type="text/javascript"
+              src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;language=vi&amp;v=3.exp&libraries=places"></script>
 
           
     <!-- JQUERY -->
@@ -73,13 +74,13 @@
                                size="30" placeholder="nhập vào số nhà, tên đường, thành phố, quốc gia" title="Hãy nhập địa chỉ"></input></td>
                 <td>
                 <input type="hidden" id="street_number" name="streetNumber" />
-                <input type="hidden" id="route" name="route"></input>             
-                <input type="hidden" id="locality" name="city"></input>
-                <input type="hidden" id="postal_code" name="postalCode"></input>
-                <input type="hidden" id="country" name="country"></input>
-                
-                <input type="hidden" id="latitude" name="latitude" value="30"></input>
-                <input type="hidden" id="longitude" name="longitude" value="34"></input>
+                    <input type="hidden" id="route" name="route">
+                    <input type="hidden" id="locality" name="city">
+                    <input type="hidden" id="postal_code" name="postalCode">
+                    <input type="hidden" id="country" name="country">
+
+                    <input type="hidden" id="latitude" name="latitude" value="30">
+                    <input type="hidden" id="longitude" name="longitude" value="34">
                </td> 
             </tr>          
             <!--
@@ -115,16 +116,17 @@
                 </tr>-->
 
             <tr>
-                <td>Điện thoại</td>    
-                <td><input id="telephone" name="telephone" type="text" size="30" placeholder="điện thoại liên hệ"></input></td>
+                <td>Điện thoại</td>
+                <td><input id="telephone" name="telephone" type="text" size="30" placeholder="điện thoại liên hệ"></td>
             </tr>
             <tr>
                 <td>Giờ mở cửa</td>
-                <td><input id="openTime" name="openTime" type="text" size="30" placeholder="nhập giờ mở cửa"></input></td>
+                <td><input id="openTime" name="openTime" type="text" size="30" placeholder="nhập giờ mở cửa"></td>
             </tr>
             <tr>
-                <td>Trang web</td>    
-                <td><input id="referenceUrl" name="referenceUrl" type="url" size="30" placeholder="nhập đường link tới trang web"></input></td>
+                <td>Trang web</td>
+                <td><input id="referenceUrl" name="referenceUrl" type="url" size="30"
+                           placeholder="nhập đường link tới trang web"></td>
             </tr>
             <tr>
                 <td>Thông tin chung:</td>
@@ -145,7 +147,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input type="button" id="newPlaceFormSubmit" value="Gửi đi"></input></td>
+                <td><input type="button" id="newPlaceFormSubmit" value="Gửi đi"></td>
 
             </tr>
         </table>
