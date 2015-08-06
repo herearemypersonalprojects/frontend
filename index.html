@@ -43,9 +43,9 @@
     <div id="map-canvas"></div>
     <button id="new-place" type="button">Thêm địa điểm</button>
      
-    <iframe name="hiddenFrame" class="hide"></iframe>  
-    
-    <form id="new-place-form" action="http://localhost:2011/place" method="POST" enctype="multipart/form-data" >
+    <iframe name="hiddenFrame" class="hide"></iframe>
+
+    <form id="new-place-form" action="http://bandoviet.net/api/place" method="POST" enctype="multipart/form-data">
        <fieldset>
         <button id="new-place-form-close" style="float: right;" type="button">x</button>
         <table>
@@ -125,7 +125,7 @@
             </tr>
             <tr>
                 <td>Trang web</td>
-                <td><input id="referenceUrl" name="referenceUrl" type="url" size="30"
+                <td><input id="referenceUrl" name="referenceUrl" type="text" size="30"
                            placeholder="nhập đường link tới trang web"></td>
             </tr>
             <tr>
