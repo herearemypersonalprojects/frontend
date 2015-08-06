@@ -34,6 +34,7 @@
     <script src="js/place.js"></script>  
     <script src="js/lang.js"></script>  
     <script src="js/map.js"></script>
+    <script src="js/file.js"></script>
       
   </head>
   <body>
@@ -129,12 +130,12 @@
                 <td><textarea id="information" name="information" rows="2" cols="30"
                                placeholder="nhập thông tin chi tiết"></textarea></td>
             </tr>
-            <!--
+            
             <tr>
-                <td>Ảnh chụp:</td>
-                <td><input type="file" name="pic" accept="image/*"></td>
+                <td>Ảnh chụp:</td>                
+                <td><input type="file" name="file" id="file" accept="image/*"></td>
             </tr>
-            -->
+            
             <tr>
                 <td><input type="hidden" id="communityCode" name="communityCode" value="vietnam"></td>                
             </tr>
@@ -143,7 +144,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit" id="submit1" value="Gửi đi"></input></td>
+                <td><input type="button" id="newPlaceFormSubmit" value="Gửi đi"></input></td>
 
             </tr>
         </table>
