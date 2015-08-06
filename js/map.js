@@ -75,8 +75,8 @@ function initialize() {
 //load place from database
 function loadPlaces() {
 	  $.ajax({
-		    type: "get", 
-		    url: "http://localhost:2011/places",
+		    type: "get",
+          url: "http://bandoviet.net/api/places",
 		    success: function (data) {		        
 		        $(data).each(function(idx, item){
 		            
