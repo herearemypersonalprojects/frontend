@@ -70,17 +70,22 @@ function initialize() {
     loadPlaces();
     
 } // [END initialize]
-
+$('.placeMarker').click(function (e) {
+    var className = $(this).attr('name');
+    //$(className).show();
+});
 // [START loadPlaces]
 //load place from database
 function loadPlaces() {
 	  $.ajax({
-		    type: "get", 
-		    url: "http://localhost:2011/places",
+		    type: "get",
+          url: "http://bandoviet.net/api/places",
 		    success: function (data) {		        
 		        $(data).each(function(idx, item){
-		            
-		            var content ='<div id="div-main-infoWindow">'+item.title+'</div>';
+
+                    var content = '<div class="placeMarker" name="' + item.id + '" style="cursor: pointer" id="div-main-infoWindow">' + item.title + '</div>' +
+                        '<div class="' + item.id + '" style="display:none">' + item.information + '</div>' +
+                        '<img class="' + item.id + '" src="http://bandoviet.net' + item.imagePath + '" style="width:154px;height:128px;">';
 
 		            var servicePos = new google.maps.LatLng(item.latitude, item.longitude);
 

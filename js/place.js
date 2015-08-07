@@ -1,4 +1,5 @@
 $(function () {
+
 	// Add new place
 	$('#new-place-form').hide();
 	$('#new-place').click(function() {
