@@ -18,8 +18,26 @@ $(function () {
 		submitForm($('#new-place-form'));		
 	});
 	
+
+	function disable(form) {
+		var limit = form.elements.length;
+		for (i = 0; i < limit; i++) {
+			form.elements[i].disabled = true;
+		}
+	}
+     
+    function enable(form) {
+	    var limit = form.elements.length;
+	    for (i=0;i<limit;i++) {
+	      form.elements[i].disabled = false;
+	    }
+	}  
+	
 	// common functions
 	function submitForm(form) {
+		  form.hide();
+    	  $('#new-place').text('Cảm ơn bạn :)');		
+	      disable(form);
 		  $.ajax({
 			    url: form.attr("action"),
 			    type: "POST",
@@ -30,8 +48,7 @@ $(function () {
 			    cache: false,
 			    success: function () {
 			      // Handle upload success
-			    	form.hide();
-			    	$('#new-place').text('Cảm ơn bạn :)');			    	
+			      enable(form);	
 			    },
 			    error: function () {
 			      // Handle upload error
