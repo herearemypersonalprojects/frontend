@@ -38,7 +38,7 @@ $(function () {
 	function submitForm(form) {
 		  form.hide();
     	  $('#new-place').text('Cảm ơn bạn :)');		
-	      disable(form);
+	      //disable(form);
 		  $.ajax({
 			    url: form.attr("action"),
 			    type: "POST",
@@ -49,7 +49,7 @@ $(function () {
 			    cache: false,
 			    success: function () {
 			      // Handle upload success
-			      enable(form);	
+			      //enable(form);	
 			    },
 			    error: function () {
 			      // Handle upload error
