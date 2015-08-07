@@ -84,8 +84,11 @@ function loadPlaces() {
 		        $(data).each(function(idx, item){
 
                     var content = '<div class="placeMarker" name="' + item.id + '" style="cursor: pointer" id="div-main-infoWindow">' + item.title + '</div>' +
-                        '<div class="' + item.id + '" style="display:none">' + item.information + '</div>' +
-                        '<img class="' + item.id + '" src="http://bandoviet.net' + item.imagePath + '" style="width:154px;height:128px;">';
+                        '<div class="' + item.id + '" style="display:none">' + item.information + '</div>';
+                    if (!item.imagePath) {
+                    	content = content + '<img class="' + item.id + '" src="http://bandoviet.net' + item.imagePath + '" style="width:154px;height:128px;">';
+                    }
+                        
 
 		            var servicePos = new google.maps.LatLng(item.latitude, item.longitude);
 
