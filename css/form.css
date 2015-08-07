@@ -4,6 +4,14 @@
 
 .hide { position:absolute; top:-1px; left:-1px; width:1px; height:1px; }
 
+.warning {
+    background-color: #ffc;
+}
+
+.danger {
+    background-color: #fcc;
+}
+
 #new-place {
     width: 150px;
     box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;

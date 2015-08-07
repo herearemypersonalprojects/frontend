@@ -37,10 +37,19 @@ $(function () {
 	// common functions
 	function submitForm(form) {
 	    if( !$('#title').val() ) {
+	    	$('#title').addClass( "warning" );
 	    	$('#title').focus();
 	    	alert('Xin bạn vui lòng nhập tên địa điểm');
 	    	return false;
 	    }
+	    
+	    if( !$('#addressInput').val() ) {
+	    	$('#addressInput').addClass( "warning" );
+	    	$('#addressInput').focus();
+	    	alert('Xin bạn vui lòng nhập địa điểm');
+	    	return false;
+	    }
+	    
 	    
 		  form.hide();
     	  $('#new-place').text('Cảm ơn bạn :)');		
