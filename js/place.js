@@ -36,6 +36,12 @@ $(function () {
 	
 	// common functions
 	function submitForm(form) {
+	    if( !$('#title').val() ) {
+	    	$('#title').focus();
+	    	alert('Xin bạn vui lòng nhập tên địa điểm');
+	    	return false;
+	    }
+	    
 		  form.hide();
     	  $('#new-place').text('Cảm ơn bạn :)');		
 	      //disable(form);
