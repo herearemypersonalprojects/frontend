@@ -85,7 +85,7 @@ function loadPlaces() {
 
                     var content = '<div class="placeMarker" name="' + item.id + '" style="cursor: pointer" id="div-main-infoWindow">' + item.title + '</div>' +
                         '<div class="' + item.id + '" style="display:none">' + item.information + '</div>';
-                    if (item.imagePath) {
+                    if (!item.imagePath) {
                     	content = content + '<img class="' + item.id + '" src="http://bandoviet.net' + item.imagePath + '" style="width:154px;height:128px;">';
                     }
                         
