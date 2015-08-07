@@ -70,17 +70,42 @@ function initialize() {
     loadPlaces();
     
 } // [END initialize]
-$('.placeMarker').click(function (e) {
-    var className = $(this).attr('name');
-    //$(className).show();
-});
+
+// [START load only places in the selected view]
+function loadPlacesFromCurrentView(map) {
+	// determine the map bounds
+	var bounds = map.getBounds();
+	
+	// determine the current view's points
+	var swPoint = bounds.getSouthWest();
+	var nePoint = bounds.getNorthEast();
+	
+	var swLat = swPoint.lat();
+	var swLng = swPoint.lng();
+	var neLat = nePoint.lat();
+	var neLng = nePoint.lng();
+	
+	
+}
+// [END loadPlacesFromCurrentView]
+
+function loadPlacesByCity(city) {
+	// step 1: load all places in the selected city
+	
+	// step 2: zoom fit the displayed places
+	var latlngbounds = new google.maps.LatLngBounds();
+	// for each place: latlngbounds.extend(servicePos);
+	map.fitBounds(latlngbounds);
+}
+
 // [START loadPlaces]
-//load place from database
-function loadPlaces() {
+//load places from database for a city (the selected city) 
+function loadPlaces() {	
 	  $.ajax({
 		    type: "get",
-          url: "http://bandoviet.net/api/places",
-		    success: function (data) {		        
+            url: "http://bandoviet.net/api/places",
+		    success: function (data) {
+		    	
 		        $(data).each(function(idx, item){
 
                     var content = '<div class="placeMarker" name="' + item.id + '" style="cursor: pointer" id="div-main-infoWindow">' + item.title + '</div>' +
@@ -91,13 +116,14 @@ function loadPlaces() {
                         
 
 		            var servicePos = new google.maps.LatLng(item.latitude, item.longitude);
-
+		            	
 		            infowindow = new google.maps.InfoWindow({
 		                map: map,
 		                position: servicePos,
 		                content:  content//.substring(0, 50)
-		            });
-		        });
+		            });		
+		            
+		        });		        
 		    },
 		    error: function (request, status, error) {
 		        alert(request.responseText + ":" + status + ":" + error);

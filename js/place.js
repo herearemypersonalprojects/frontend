@@ -52,7 +52,7 @@ $(function () {
 	    
 	    
 		  form.hide();
-    	  $('#new-place').text('Cảm ơn bạn :)');		
+    	  $('#new-place').text('Xin cảm ơn');		
 	      //disable(form);
 		  $.ajax({
 			    url: form.attr("action"),
