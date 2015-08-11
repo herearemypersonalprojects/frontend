@@ -3,6 +3,8 @@ var map;
 var geocoder;
 var marker;
 var infowindow;
+var displayPlaceController;
+var realTimeUpdateController;
 var latitude;
 var longitude;
 var autocomplete;
@@ -21,6 +23,9 @@ $(function () {
         geocoder.geocode({ 'address': $('#addressInput').val() }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 getCity(results);
+            } else {
+                $('#addressInput').addClass("warning");
+                alert('Không tìm thấy địa chỉ này :(');
             }
         });
     });
@@ -67,9 +72,24 @@ function initialize() {
     //});
     //status_changed
     //map.controls[google.maps.ControlPosition.RIGHT].push(autocomplete);
-    loadPlaces();
+
+    //loadPlaces();
+    var myVar = setTimeout(function () {
+        loadPlacesFromCurrentView(map)
+    }, 1000);
     
 } // [END initialize]
+
+function realtimeUpdate() {
+    clearInterval(realTimeUpdateController);
+    realTimeUpdateController = setInterval(function () {
+        updateInformation()
+    }, 1000);
+}
+
+function updateInformation() {
+
+}
 
 // [START load only places in the selected view]
 function loadPlacesFromCurrentView(map) {
@@ -84,7 +104,31 @@ function loadPlacesFromCurrentView(map) {
 	var swLng = swPoint.lng();
 	var neLat = nePoint.lat();
 	var neLng = nePoint.lng();
-	
+
+    var JSONObject = {
+        "swLat": swLat,
+        "swLng": swLng,
+        "neLat": neLat,
+        "neLng": neLng
+    };
+
+    clearInterval(displayPlaceController);
+    $.ajax({
+        url: "/api/getPlaces",
+        type: 'post',
+        data: JSONObject,
+        dataType: 'JSON',
+        success: function (data) {
+
+            $(data).each(function (idx, item) {
+
+                displayPlace(item, idx * 200);
+            });
+        },
+        error: function (request, status, error) {
+            console.log(request.responseText + ":" + status + ":" + error);
+        }
+    });
 	
 }
 // [END loadPlacesFromCurrentView]
@@ -98,35 +142,41 @@ function loadPlacesByCity(city) {
 	map.fitBounds(latlngbounds);
 }
 
+function displayPlace(item, timeOut) {
+    displayPlaceController = setTimeout(function () {
+        //console.log(item.title);
+        var content = '<div class="placeMarker" name="' + item.id + '" style="cursor: pointer" id="div-main-infoWindow">' + item.title + '</div>' +
+            '<div class="' + item.id + '" style="display:none"https://www.dropbox.com/s/zz52pykosr63yg5/Capture%20d%27%C3%A9cran%202015-08-08%2001.13.44.png?dl=0>' + item.information + '</div>';
+        if (item.imagePath) {
+            content = content + '<img class="' + item.id + '" src="http://bandoviet.net' + item.imagePath + '" style="width:154px;height:128px;">';
+        }
+
+        var servicePos = new google.maps.LatLng(item.latitude, item.longitude);
+
+        infowindow = new google.maps.InfoWindow({
+            map: map,
+            position: servicePos,
+            content: content
+        });
+    }, timeOut);
+}
+
 // [START loadPlaces]
 //load places from database for a city (the selected city) 
-function loadPlaces() {	
+function loadPlaces() {
+    clearInterval(displayPlaceController);
 	  $.ajax({
 		    type: "get",
-            url: "http://bandoviet.net/api/places",
+          url: "/api/places",
 		    success: function (data) {
-		    	
+
 		        $(data).each(function(idx, item){
 
-                    var content = '<div class="placeMarker" name="' + item.id + '" style="cursor: pointer" id="div-main-infoWindow">' + item.title + '</div>' +
-                        '<div class="' + item.id + '" style="display:none">' + item.information + '</div>';
-                    if (item.imagePath) {
-                    	content = content + '<img class="' + item.id + '" src="http://bandoviet.net' + item.imagePath + '" style="width:154px;height:128px;">';
-                    }
-                        
-
-		            var servicePos = new google.maps.LatLng(item.latitude, item.longitude);
-		            	
-		            infowindow = new google.maps.InfoWindow({
-		                map: map,
-		                position: servicePos,
-		                content:  content//.substring(0, 50)
-		            });		
-		            
+                    displayPlace(item, idx * 200);
 		        });		        
 		    },
 		    error: function (request, status, error) {
-		        alert(request.responseText + ":" + status + ":" + error);
+                console.log(request.responseText + ":" + status + ":" + error);
 		    }
 		});
 
@@ -136,7 +186,24 @@ function loadPlaces() {
 function fillInAddress() {
     // Get the place details from the autocomplete object.
     var place = autocomplete.getPlace();
-    
+
+
+    if (!place.geometry) {
+        window.alert("Autocomplete's returned place contains no geometry");
+        return;
+    }
+
+    // If the place has a geometry, then present it on a map.
+    if (place.geometry.viewport) {
+        map.fitBounds(place.geometry.viewport);
+    } else {
+        map.setCenter(place.geometry.location);
+        map.setZoom(17);  // Why 17? Because it looks good.
+    }
+
+
+
+
     latitude = place.geometry.location.lat();
     longitude = place.geometry.location.lng();
     showMarker();
