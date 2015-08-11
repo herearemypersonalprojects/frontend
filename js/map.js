@@ -108,7 +108,7 @@ function loadPlacesFromCurrentView(map) {
 function loadPlaces(JSONObject) {
     for (var i = 0; i < displayPlaceController.length; i++)  window.clearInterval(displayPlaceController[i]);
     $.ajax({
-        url: "http://bandoviet.net/api/getPlaces",
+        url: "/api/getPlaces",
         type: 'post',
         data: JSONObject,
         dataType: 'JSON',
@@ -155,7 +155,7 @@ function displayPlace(item, timeOut) {
          */
         marker = new google.maps.Marker({
             position: servicePos,
-            icon: "images/restaurant_vietnamese.png",
+            icon: "icon/restaurant_vietnamese.png",
             map: map
         });
     }, timeOut));
@@ -295,7 +295,7 @@ function showMarker() {
     if (marker != null) marker.setMap(null);
     marker = new google.maps.Marker({
         map: map,
-        icon: "images/restaurant_vietnamese.png",
+        icon: "icon/restaurant_vietnamese.png",
         position: latlng,
         draggable: true
     });

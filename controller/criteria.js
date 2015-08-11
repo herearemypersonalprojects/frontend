@@ -5,7 +5,7 @@ $(function () {
     // List available cities
     $.ajax({
         type: "get",
-        url: "http://bandoviet.net/api/cities",
+        url: "/api/cities",
         success: function (data) {
             $(data).each(function (idx, item) {
                 $('#cityCriterion')
