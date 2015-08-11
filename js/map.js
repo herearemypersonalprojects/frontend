@@ -108,7 +108,7 @@ function loadPlacesFromCurrentView(map) {
 function loadPlaces(JSONObject) {
     for (var i = 0; i < displayPlaceController.length; i++)  window.clearInterval(displayPlaceController[i]);
     $.ajax({
-        url: "/api/getPlaces",
+        url: "http://bandoviet.net/api/getPlaces",
         type: 'post',
         data: JSONObject,
         dataType: 'JSON',
