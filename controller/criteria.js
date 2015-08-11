@@ -22,11 +22,19 @@ $(function () {
 
     // action to select a city
     $('#cityCriterion').change(function () {
-
+        var that = $(this);
         var JSONObject = {
-            "city": $(this).val()
+            "city": that.val()
         };
-        loadPlaces(JSONObject);
+
+        var address = $("#cityCriterion option:selected").text();
+        $('#addressInput').val(address);
+        extractCityFromAddress(address);
+        setTimeout(function () {
+            loadPlaces(JSONObject);
+        }, 100);
+
+
 
     });
 });

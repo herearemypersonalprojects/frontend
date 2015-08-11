@@ -1,15 +1,14 @@
 var paris = new google.maps.LatLng(48.856614, 2.3522219000000177);
+var zoomLevel = 13;
 var map;
 var geocoder;
 var marker;
 var infowindow;
 var displayPlaceController = [];
-var center;
 var realTimeUpdateController;
 var latitude;
 var longitude;
 var autocomplete;
-var latlngbounds;
 var componentForm = {
     street_number: 'short_name',
     route: 'long_name',
@@ -24,7 +23,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 // [START initialize]
 function initialize() {
       map = new google.maps.Map(document.getElementById('map-canvas'), {
-        zoom: 13,
+          zoom: zoomLevel,
         panControl: false,
         zoomControl: true,
         mapTypeControl: false,
@@ -41,8 +40,6 @@ function initialize() {
     geocoder = new google.maps.Geocoder();
     
     infowindow = new google.maps.InfoWindow();
-
-    latlngbounds = new google.maps.LatLngBounds();
   
     marker = new google.maps.Marker({
         map: map,
@@ -63,9 +60,8 @@ function initialize() {
     //status_changed
     //map.controls[google.maps.ControlPosition.RIGHT].push(autocomplete);
 
-    // delay displaying places 2000 ms after displaying the map
-    var myVar = setTimeout(function () {
-        loadPlacesFromCurrentView(map)
+    setTimeout(function () {
+        loadPlacesFromCurrentView(map);
     }, 1000);
     
 } // [END initialize]
@@ -101,13 +97,15 @@ function loadPlacesFromCurrentView(map) {
         "neLat": neLat,
         "neLng": neLng
     };
+
+    // delay displaying places 1000 ms after displaying the map
     loadPlaces(JSONObject);
+
 }
 // [END loadPlacesFromCurrentView]
 
 // [START load places with given criteria]
 function loadPlaces(JSONObject) {
-
     for (var i = 0; i < displayPlaceController.length; i++)  window.clearInterval(displayPlaceController[i]);
     $.ajax({
         url: "/api/getPlaces",
@@ -115,13 +113,12 @@ function loadPlaces(JSONObject) {
         data: JSONObject,
         dataType: 'JSON',
         success: function (data) {
-            //window.latlngbounds = new google.maps.LatLngBounds();
+
             $(data).each(function (idx, item) {
 
-                displayPlace(item, idx * 200);
+                displayPlace(item, idx * 20);
             });
-            map.panTo(center);
-            //map.fitBounds(window.latlngbounds);
+            //map.panTo(center);
         },
         error: function (request, status, error) {
             console.log(request.responseText + ":" + status + ":" + error);
@@ -140,20 +137,26 @@ function loadPlacesByCity(city) {
 
 function displayPlace(item, timeOut) {
     displayPlaceController.push(setTimeout(function () {
-        //console.log(item.title);
         var content = '<div class="placeMarker" name="' + item.id + '" style="cursor: pointer" id="div-main-infoWindow">' + item.title + '</div>' +
             '<div class="' + item.id + '" style="display:none"https://www.dropbox.com/s/zz52pykosr63yg5/Capture%20d%27%C3%A9cran%202015-08-08%2001.13.44.png?dl=0>' + item.information + '</div>';
         if (item.imagePath) {
-            content = content + '<img class="' + item.id + '" src="http://bandoviet.net' + item.imagePath + '" style="width:154px;height:128px;">';
+            content = content + '<img class="' + item.id + '" src="http://bandoviet.net' + item.imagePath + '" style="width:75px;height:64px;">';
+        } else {
+            content = content + '<img class="' + item.id + '" src="http://thumb7.shutterstock.com/thumb_large/921158/205093411/stock-vector-vietnam-traditional-costume-on-white-background-205093411.jpg" style="width:75px;height:64px;">';
         }
 
         var servicePos = new google.maps.LatLng(item.latitude, item.longitude);
-        //window.latlngbounds.extend(servicePos);
-        center = servicePos;
+        /*
         infowindow = new google.maps.InfoWindow({
             map: map,
             position: servicePos,
             content: content
+        });
+         */
+        marker = new google.maps.Marker({
+            position: servicePos,
+            icon: "images/restaurant_vietnamese.png",
+            map: map
         });
     }, timeOut));
 }
@@ -168,12 +171,11 @@ function loadPlaces_tobedeleted() {
 		    success: function (data) {
 
 		        $(data).each(function(idx, item){
-
                     displayPlace(item, idx * 200);
 		        });		        
 		    },
 		    error: function (request, status, error) {
-                console.log(request.responseText + ":" + status + ":" + error);
+                console.log("error: " + request.responseText + ":" + status + ":" + error);
 		    }
 		});
 
@@ -250,11 +252,9 @@ function getCity(results) {
     for (i = 0 ; i < results.length ; ++i)
     {
         var super_var1 = results[i].address_components;
-        for (j = 0 ; j < super_var1.length ; ++j)
-        {console.log(super_var1[j].long_name);
+        for (j = 0 ; j < super_var1.length ; ++j) {
             var super_var2 = super_var1[j].types;
-            for (k = 0 ; k < super_var2.length ; ++k)
-            {console.log(super_var2[k] + ':'  + super_var1[j].long_name);
+            for (k = 0 ; k < super_var2.length ; ++k) {
                 //find city
                 if (super_var2[k] == "locality")
                 {
@@ -291,9 +291,11 @@ function getCity(results) {
 function showMarker() {
     var latlng = new google.maps.LatLng(latitude, longitude);
     map.setCenter(new google.maps.LatLng(latitude, longitude));
+
     if (marker != null) marker.setMap(null);
     marker = new google.maps.Marker({
         map: map,
+        icon: "images/restaurant_vietnamese.png",
         position: latlng,
         draggable: true
     });
