@@ -3,11 +3,13 @@ var map;
 var geocoder;
 var marker;
 var infowindow;
-var displayPlaceController;
+var displayPlaceController = [];
+var center;
 var realTimeUpdateController;
 var latitude;
 var longitude;
 var autocomplete;
+var latlngbounds;
 var componentForm = {
     street_number: 'short_name',
     route: 'long_name',
@@ -16,20 +18,6 @@ var componentForm = {
     country: 'long_name',
     postal_code: 'short_name'
 };
-
-// Extract city, country from address input by user when creating a new place
-$(function () {
-    $('#addressInput').blur(function() {           
-        geocoder.geocode({ 'address': $('#addressInput').val() }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                getCity(results);
-            } else {
-                $('#addressInput').addClass("warning");
-                alert('Không tìm thấy địa chỉ này :(');
-            }
-        });
-    });
-});
     
 google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -53,6 +41,8 @@ function initialize() {
     geocoder = new google.maps.Geocoder();
     
     infowindow = new google.maps.InfoWindow();
+
+    latlngbounds = new google.maps.LatLngBounds();
   
     marker = new google.maps.Marker({
         map: map,
@@ -73,7 +63,7 @@ function initialize() {
     //status_changed
     //map.controls[google.maps.ControlPosition.RIGHT].push(autocomplete);
 
-    //loadPlaces();
+    // delay displaying places 2000 ms after displaying the map
     var myVar = setTimeout(function () {
         loadPlacesFromCurrentView(map)
     }, 1000);
@@ -111,27 +101,33 @@ function loadPlacesFromCurrentView(map) {
         "neLat": neLat,
         "neLng": neLng
     };
+    loadPlaces(JSONObject);
+}
+// [END loadPlacesFromCurrentView]
 
-    clearInterval(displayPlaceController);
+// [START load places with given criteria]
+function loadPlaces(JSONObject) {
+
+    for (var i = 0; i < displayPlaceController.length; i++)  window.clearInterval(displayPlaceController[i]);
     $.ajax({
         url: "/api/getPlaces",
         type: 'post',
         data: JSONObject,
         dataType: 'JSON',
         success: function (data) {
-
+            //window.latlngbounds = new google.maps.LatLngBounds();
             $(data).each(function (idx, item) {
 
                 displayPlace(item, idx * 200);
             });
+            map.panTo(center);
+            //map.fitBounds(window.latlngbounds);
         },
         error: function (request, status, error) {
             console.log(request.responseText + ":" + status + ":" + error);
         }
     });
-	
-}
-// [END loadPlacesFromCurrentView]
+} //[END loadPlaces with given criteria]
 
 function loadPlacesByCity(city) {
 	// step 1: load all places in the selected city
@@ -143,7 +139,7 @@ function loadPlacesByCity(city) {
 }
 
 function displayPlace(item, timeOut) {
-    displayPlaceController = setTimeout(function () {
+    displayPlaceController.push(setTimeout(function () {
         //console.log(item.title);
         var content = '<div class="placeMarker" name="' + item.id + '" style="cursor: pointer" id="div-main-infoWindow">' + item.title + '</div>' +
             '<div class="' + item.id + '" style="display:none"https://www.dropbox.com/s/zz52pykosr63yg5/Capture%20d%27%C3%A9cran%202015-08-08%2001.13.44.png?dl=0>' + item.information + '</div>';
@@ -152,18 +148,19 @@ function displayPlace(item, timeOut) {
         }
 
         var servicePos = new google.maps.LatLng(item.latitude, item.longitude);
-
+        //window.latlngbounds.extend(servicePos);
+        center = servicePos;
         infowindow = new google.maps.InfoWindow({
             map: map,
             position: servicePos,
             content: content
         });
-    }, timeOut);
+    }, timeOut));
 }
 
 // [START loadPlaces]
 //load places from database for a city (the selected city) 
-function loadPlaces() {
+function loadPlaces_tobedeleted() {
     clearInterval(displayPlaceController);
 	  $.ajax({
 		    type: "get",

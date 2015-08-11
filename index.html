@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <head>
-      <title>Vietnam World Map</title>
+<head>
+    <title>Vietnam World Map</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    
-    <!-- GOOGLE MAP -->
-      <script type="text/javascript"
-              src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;language=vi&amp;v=3.exp&libraries=places"></script>
 
-          
+    <!-- GOOGLE MAP -->
+    <script type="text/javascript"
+            src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;language=vi&amp;v=3.exp&libraries=places"></script>
+
+
     <!-- JQUERY -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
-      
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
     <!-- JQUERY UI 
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
@@ -27,26 +27,31 @@
     <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/icon.css">
   
     <!-- MY CSS -->
-    <link rel="stylesheet" href="css/form.css">  
+    <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" type="text/css" href="css/map.css">
-      
+
     <!-- MY JAVASCRIPTS -->
     <script src="js/common.js"></script>
     <script src="js/file.js"></script>
-    <script src="js/place.js"></script>  
-    <script src="js/lang.js"></script>  
+    <script src="js/lang.js"></script>
     <script src="js/map.js"></script>
-      <script src="model/placeObject.js"></script>
-      
-  </head>
-  <body>
-    <div id="map-canvas"></div>
-    <button id="new-place" type="button">Thêm địa điểm</button>
-     
-    <iframe name="hiddenFrame" class="hide"></iframe>
+    <script src="model/placeObject.js"></script>
 
-    <form id="new-place-form" action="/api/place" method="POST" enctype="multipart/form-data">
-       <fieldset>
+    <script src="js/place.js"></script>
+
+    <script src="controller/criteria.js"></script>
+</head>
+<body>
+<div id="map-canvas"></div>
+<button id="new-place" type="button">Thêm địa điểm</button>
+
+<select id="cityCriterion" name="cityCriterion" placeholder="thanh pho">
+</select>
+
+<iframe name="hiddenFrame" class="hide"></iframe>
+
+<form id="new-place-form" action="/api/place" method="POST" enctype="multipart/form-data">
+    <fieldset>
         <button id="new-place-form-close" style="float: right;" type="button">x</button>
         <table>
             <!--
@@ -66,14 +71,16 @@
             -->
             <tr>
                 <td>Tên địa điểm:</td>
-                <td><input required id="title" name="title" placeholder="nhập vào tên địa điểm" size="30" title="Hãy nhập tên địa điểm"/></td>
-            </tr>            
+                <td><input required id="title" name="title" placeholder="nhập vào tên địa điểm" size="30"
+                           title="Hãy nhập tên địa điểm"/></td>
+            </tr>
             <tr>
                 <td>Địa chỉ:</td>
                 <td><input required id="addressInput" name="address" onFocus="geolocate()" type="text"
-                               size="30" placeholder="nhập vào số nhà, tên đường, thành phố, quốc gia" title="Hãy nhập địa chỉ"></input></td>
+                           size="30" placeholder="nhập vào số nhà, tên đường, thành phố, quốc gia"
+                           title="Hãy nhập địa chỉ"></input></td>
                 <td>
-                <input type="hidden" id="street_number" name="streetNumber" />
+                    <input type="hidden" id="street_number" name="streetNumber"/>
                     <input type="hidden" id="route" name="route">
                     <input type="hidden" id="locality" name="city">
                     <input type="hidden" id="postal_code" name="postalCode">
@@ -81,8 +88,8 @@
 
                     <input type="hidden" id="latitude" name="latitude" value="30">
                     <input type="hidden" id="longitude" name="longitude" value="34">
-               </td> 
-            </tr>          
+                </td>
+            </tr>
             <!--
                 <tr>
                     <td class="label">So nha</td>
@@ -131,19 +138,19 @@
             <tr>
                 <td>Thông tin chung:</td>
                 <td><textarea id="information" name="information" rows="2" cols="30"
-                               placeholder="nhập thông tin chi tiết"></textarea></td>
+                              placeholder="nhập thông tin chi tiết"></textarea></td>
             </tr>
-            
+
             <tr>
-                <td>Ảnh chụp:</td>                
+                <td>Ảnh chụp:</td>
                 <td><input type="file" name="file" id="file" accept="image/*"></td>
             </tr>
-            
+
             <tr>
-                <td><input type="hidden" id="communityCode" name="communityCode" value="vietnam"></td>                
+                <td><input type="hidden" id="communityCode" name="communityCode" value="vietnam"></td>
             </tr>
             <tr>
-                <td><input type="hidden" id="placeType" name="placeType" value="restaurant"></td>    
+                <td><input type="hidden" id="placeType" name="placeType" value="restaurant"></td>
             </tr>
             <tr>
                 <td></td>
@@ -151,10 +158,10 @@
 
             </tr>
         </table>
-       </fieldset> 
-    </form>
+    </fieldset>
+</form>
 
-  </body>
+</body>
 </html>
 
 

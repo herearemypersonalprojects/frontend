@@ -4,3 +4,14 @@ html, body, #map-canvas {
     padding: 0;
 }
 
+#cityCriterion {
+    box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.298);
+    font-family: Roboto, Arial;
+    font-size: 13px;
+    margin: 15px;
+    padding: 10px;
+    position: absolute;
+    right: 586px;
+    top: -10px;
+    width: 150px;
+}
