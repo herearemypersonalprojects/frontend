@@ -1,10 +1,11 @@
 var paris = new google.maps.LatLng(48.856614, 2.3522219000000177);
-var zoomLevel = 13;
+var zoomLevel = 20;
 var map;
 var geocoder;
 var marker;
 var infowindow;
 var displayPlaceController = [];
+var displayedPlace = [];
 var realTimeUpdateController;
 var latitude;
 var longitude;
@@ -40,25 +41,18 @@ function initialize() {
     geocoder = new google.maps.Geocoder();
     
     infowindow = new google.maps.InfoWindow();
-  
-    marker = new google.maps.Marker({
-        map: map,
-        position: paris,
-        draggable: true
-    });
-    
-    // Create the autocomplete object, restricting the search
-    // to geographical location types.
+
+    // Create the autocomplete object, restricting the search to geographical location types.
     autocomplete = new google.maps.places.Autocomplete(
         /** @type {HTMLInputElement} */(document.getElementById('addressInput')),
         { types: ['geocode'] });
-    // When the user selects an address from the dropdown,
-    // populate the address fields in the form.
-    //google.maps.event.addListener(autocomplete, 'place_changed', function() {
-    //    fillInAddress();
-    //});
-    //status_changed
-    //map.controls[google.maps.ControlPosition.RIGHT].push(autocomplete);
+
+    // Change view
+    google.maps.event.addListener(map, 'center_changed', function () {
+        setTimeout(function () {
+            loadPlacesFromCurrentView(map);
+        }, 1000);
+    });
 
     setTimeout(function () {
         loadPlacesFromCurrentView(map);
@@ -115,8 +109,9 @@ function loadPlaces(JSONObject) {
         success: function (data) {
 
             $(data).each(function (idx, item) {
-
-                displayPlace(item, idx * 20);
+                if (indexOf.call(displayedPlace, item.id) < 0) {
+                    displayPlace(item, idx * 20);
+                }
             });
             //map.panTo(center);
         },
@@ -153,11 +148,13 @@ function displayPlace(item, timeOut) {
             content: content
         });
          */
-        marker = new google.maps.Marker({
+        var placemarker = new google.maps.Marker({
             position: servicePos,
             icon: "icon/restaurant_vietnamese.png",
             map: map
         });
+
+        displayedPlace.push(item.id);
     }, timeOut));
 }
 
