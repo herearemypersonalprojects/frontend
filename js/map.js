@@ -1,8 +1,11 @@
 var paris = new google.maps.LatLng(48.856614, 2.3522219000000177);
-var zoomLevel = 20;
+var zoomLevel = 15;
+var zoomMax = 17;
+var zoomMin = 2;
 var map;
 var geocoder;
 var marker;
+var placemarker;
 var infowindow;
 var displayPlaceController = [];
 var displayedPlace = [];
@@ -18,13 +21,13 @@ var componentForm = {
     country: 'long_name',
     postal_code: 'short_name'
 };
-    
+
 google.maps.event.addDomListener(window, 'load', initialize);
 
 // [START initialize]
 function initialize() {
-      map = new google.maps.Map(document.getElementById('map-canvas'), {
-          zoom: zoomLevel,
+    map = new google.maps.Map(document.getElementById('map-canvas'), {
+        zoom: zoomLevel,
         panControl: false,
         zoomControl: true,
         mapTypeControl: false,
@@ -36,16 +39,16 @@ function initialize() {
             position: google.maps.ControlPosition.RIGHT_TOP
         },
         center: paris
-      });
-    
+    });
+
     geocoder = new google.maps.Geocoder();
-    
+
     infowindow = new google.maps.InfoWindow();
 
     // Create the autocomplete object, restricting the search to geographical location types.
     autocomplete = new google.maps.places.Autocomplete(
         /** @type {HTMLInputElement} */(document.getElementById('addressInput')),
-        { types: ['geocode'] });
+        {types: ['geocode']});
 
     // Change view
     google.maps.event.addListener(map, 'center_changed', function () {
@@ -54,10 +57,25 @@ function initialize() {
         }, 1000);
     });
 
+    google.maps.event.addListener(map, 'zoom_changed', function () {
+        setTimeout(function () {
+            loadPlacesFromCurrentView(map);
+        }, 1000);
+
+        zoomLevel = map.getZoom();
+        if (zoomLevel > zoomMax) {
+            map.set(zoomMax);
+        } else if (zoomLevel < zoomMin) {
+            map.setZoom(zoomMin);
+        }
+        ;
+
+    });
+
     setTimeout(function () {
         loadPlacesFromCurrentView(map);
     }, 1000);
-    
+
 } // [END initialize]
 
 function realtimeUpdate() {
@@ -73,17 +91,17 @@ function updateInformation() {
 
 // [START load only places in the selected view]
 function loadPlacesFromCurrentView(map) {
-	// determine the map bounds
-	var bounds = map.getBounds();
-	
-	// determine the current view's points
-	var swPoint = bounds.getSouthWest();
-	var nePoint = bounds.getNorthEast();
-	
-	var swLat = swPoint.lat();
-	var swLng = swPoint.lng();
-	var neLat = nePoint.lat();
-	var neLng = nePoint.lng();
+    // determine the map bounds
+    var bounds = map.getBounds();
+
+    // determine the current view's points
+    var swPoint = bounds.getSouthWest();
+    var nePoint = bounds.getNorthEast();
+
+    var swLat = swPoint.lat();
+    var swLng = swPoint.lng();
+    var neLat = nePoint.lat();
+    var neLng = nePoint.lng();
 
     var JSONObject = {
         "swLat": swLat,
@@ -109,11 +127,11 @@ function loadPlaces(JSONObject) {
         success: function (data) {
 
             $(data).each(function (idx, item) {
+                // if place was not displayed or the passed zoom level is smaller than current zoom
                 if (indexOf.call(displayedPlace, item.id) < 0) {
                     displayPlace(item, idx * 20);
                 }
             });
-            //map.panTo(center);
         },
         error: function (request, status, error) {
             console.log(request.responseText + ":" + status + ":" + error);
@@ -122,12 +140,12 @@ function loadPlaces(JSONObject) {
 } //[END loadPlaces with given criteria]
 
 function loadPlacesByCity(city) {
-	// step 1: load all places in the selected city
-	
-	// step 2: zoom fit the displayed places
-	var latlngbounds = new google.maps.LatLngBounds();
-	// for each place: latlngbounds.extend(servicePos);
-	map.fitBounds(latlngbounds);
+    // step 1: load all places in the selected city
+
+    // step 2: zoom fit the displayed places
+    var latlngbounds = new google.maps.LatLngBounds();
+    // for each place: latlngbounds.extend(servicePos);
+    map.fitBounds(latlngbounds);
 }
 
 function displayPlace(item, timeOut) {
@@ -141,17 +159,55 @@ function displayPlace(item, timeOut) {
         }
 
         var servicePos = new google.maps.LatLng(item.latitude, item.longitude);
-        /*
+
         infowindow = new google.maps.InfoWindow({
-            map: map,
-            position: servicePos,
             content: content
         });
-         */
-        var placemarker = new google.maps.Marker({
-            position: servicePos,
-            icon: "icon/restaurant_vietnamese.png",
-            map: map
+
+        zoomLevel = map.getZoom();
+        console.log(zoomLevel);
+        if (zoomLevel < 7) {
+            var goldStar = {
+                path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+                fillColor: 'yellow',
+                fillOpacity: 0.8,
+                scale: 1,
+                strokeColor: 'gold',
+                strokeWeight: 14
+            };
+            placemarker = new google.maps.Marker({
+                position: servicePos,
+                map: map,
+                animation: google.maps.Animation.DROP,
+                icon: goldStar
+            });
+
+        } else if (zoomLevel < 14) {
+            placemarker = new google.maps.Marker({
+                position: servicePos,
+                map: map,
+                // label: "Quoc Anh",
+                icon: "icon/restaurant_vietnamese.png"
+            });
+        } else {
+            var image = 'icon/restaurant_vietnamese.png';
+            if (item.imagePath) {
+                image = '"' + item.imagePath + '"';
+            }
+            placemarker = new MarkerWithLabel({
+                position: servicePos,
+                raiseOnDrag: true,
+                icon: image,//"icon/restaurant_vietnamese.png",
+                map: map,
+                labelContent: "$12-$42",
+                labelAnchor: new google.maps.Point(22, 0),
+                labelClass: "labels" // the CSS class for the label
+            });
+        }
+
+
+        google.maps.event.addListener(placemarker, "click", function (e) {
+            infowindow.open(map, this);
         });
 
         displayedPlace.push(item.id);
@@ -162,19 +218,19 @@ function displayPlace(item, timeOut) {
 //load places from database for a city (the selected city) 
 function loadPlaces_tobedeleted() {
     clearInterval(displayPlaceController);
-	  $.ajax({
-		    type: "get",
-          url: "/api/places",
-		    success: function (data) {
+    $.ajax({
+        type: "get",
+        url: "/api/places",
+        success: function (data) {
 
-		        $(data).each(function(idx, item){
-                    displayPlace(item, idx * 200);
-		        });		        
-		    },
-		    error: function (request, status, error) {
-                console.log("error: " + request.responseText + ":" + status + ":" + error);
-		    }
-		});
+            $(data).each(function (idx, item) {
+                displayPlace(item, idx * 200);
+            });
+        },
+        error: function (request, status, error) {
+            console.log("error: " + request.responseText + ":" + status + ":" + error);
+        }
+    });
 
 } // [END loadPlaces]	
 
@@ -196,8 +252,6 @@ function fillInAddress() {
         map.setCenter(place.geometry.location);
         map.setZoom(17);  // Why 17? Because it looks good.
     }
-
-
 
 
     latitude = place.geometry.location.lat();
@@ -225,7 +279,7 @@ function fillInAddress() {
 // as supplied by the browser's 'navigator.geolocation' object.
 function geolocate() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
+        navigator.geolocation.getCurrentPosition(function (position) {
             var geolocation = new google.maps.LatLng(
                 position.coords.latitude, position.coords.longitude);
             var circle = new google.maps.Circle({
@@ -244,38 +298,34 @@ function getCity(results) {
     latitude = results[0].geometry.location.lat();
     longitude = results[0].geometry.location.lng();
     showMarker();
-    
+
     //break down the three dimensional array into simpler arrays
-    for (i = 0 ; i < results.length ; ++i)
-    {
+    for (i = 0; i < results.length; ++i) {
         var super_var1 = results[i].address_components;
-        for (j = 0 ; j < super_var1.length ; ++j) {
+        for (j = 0; j < super_var1.length; ++j) {
             var super_var2 = super_var1[j].types;
-            for (k = 0 ; k < super_var2.length ; ++k) {
+            for (k = 0; k < super_var2.length; ++k) {
                 //find city
-                if (super_var2[k] == "locality")
-                {
+                if (super_var2[k] == "locality") {
                     //put the city name in the form
                     $('#locality').val(super_var1[j].long_name);
                 }
                 //find county
-                if (super_var2[k] == "country")
-                {
+                if (super_var2[k] == "country") {
                     //put the county name in the form
                     $('#country').val(super_var1[j].long_name);
                 }
                 //find State
-                if (super_var2[k] == "postal_code")
-                {
+                if (super_var2[k] == "postal_code") {
                     //put the state abbreviation in the form
                     $('#postal_code').val(super_var1[j].short_name);
                 }
                 // street_number 66:  i
-                if (super_var2[k] == "street_number"){
+                if (super_var2[k] == "street_number") {
                     $('#street_number').val(super_var1[j].short_name);
                 }
 
-                if (super_var2[k] == "route"){
+                if (super_var2[k] == "route") {
                     $('#route').val(super_var1[j].short_name);
                 }
 
@@ -290,12 +340,19 @@ function showMarker() {
     map.setCenter(new google.maps.LatLng(latitude, longitude));
 
     if (marker != null) marker.setMap(null);
-    marker = new google.maps.Marker({
+    marker = new MarkerWithLabel({
         map: map,
-        icon: "icon/restaurant_vietnamese.png",
+        //icon: "icon/restaurant_vietnamese.png",
         position: latlng,
-        draggable: true
+        draggable: true,
+        raiseOnDrag: true,
+        labelContent: "Ở đây?",
+        animation: google.maps.Animation.DROP,
+        labelAnchor: new google.maps.Point(22, 0),
+        labelClass: "labels" // the CSS class for the label
     });
+    marker.addListener('click', toggleBounce);
+
     document.getElementById('latitude').value = latitude;
     document.getElementById('longitude').value = longitude;
 
@@ -304,3 +361,12 @@ function showMarker() {
         infowindow.open(map, marker);
     }
 } // [END showMarker]
+
+// START toggleBounce marker animation
+function toggleBounce() {
+    if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+    } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+} // END toggleBounce
