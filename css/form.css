@@ -12,6 +12,10 @@
     background-color: #fcc;
 }
 
+table {
+    width: 300px;
+}
+
 <!-- GOOGLE COPYRIGHT -->
 .button{
     color: white;

@@ -9,6 +9,7 @@ $(function () {
         //$('#state').val('Paris');
         $('#new-place-form')[0].reset();
         $('#new-place-form').show();
+        fillCountries();
     });
 
     $('#new-place-form-close').click(function () {
@@ -19,13 +20,33 @@ $(function () {
         submitForm($('#new-place-form'));
     });
 
-// Extract city, country from address input by user when creating a new place
+    // Extract city, country from address input by user when creating a new place
 
     $('#addressInput').blur(function () {
         extractCityFromAddress($('#addressInput').val());
     });
 
 });
+
+function fillCountries() {
+    $.ajax({
+        type: "get",
+        url: "/api/getListAllCountries",
+        success: function (data) {
+            $(data).each(function (idx, item) {
+                $('#communityCode')
+                    .append($("<option></option>")
+                        .attr("value", item.code)
+                        .text(item.nativeName));
+            });
+            $('#communityCode').val($('#communityCriterion').val());
+        },
+        error: function (request, status, error) {
+            console.log(request.responseText + ":" + status + ":" + error);
+        }
+    });
+}
+
 function extractCityFromAddress(address) {
     geocoder.geocode({'address': address}, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {

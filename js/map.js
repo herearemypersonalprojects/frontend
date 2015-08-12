@@ -167,19 +167,20 @@ function displayPlace(item, timeOut) {
         zoomLevel = map.getZoom();
         console.log(zoomLevel);
         if (zoomLevel < 7) {
+            /*
             var goldStar = {
                 path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
                 fillColor: 'yellow',
                 fillOpacity: 0.8,
-                scale: 1,
+             scale: 0.1,
                 strokeColor: 'gold',
                 strokeWeight: 14
             };
+             */
             placemarker = new google.maps.Marker({
                 position: servicePos,
                 map: map,
-                animation: google.maps.Animation.DROP,
-                icon: goldStar
+                icon: "icon/restaurant_vietnamese.png"
             });
 
         } else if (zoomLevel < 14) {
@@ -199,7 +200,7 @@ function displayPlace(item, timeOut) {
                 raiseOnDrag: true,
                 icon: image,//"icon/restaurant_vietnamese.png",
                 map: map,
-                labelContent: "$12-$42",
+                labelContent: "4.5/5",
                 labelAnchor: new google.maps.Point(22, 0),
                 labelClass: "labels" // the CSS class for the label
             });

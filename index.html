@@ -7,7 +7,7 @@
 
     <!-- GOOGLE MAP -->
     <script type="text/javascript"
-            src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;language=vi&amp;v=3.exp&libraries=places"></script>
+            src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;language=en&amp;v=3.exp&libraries=places"></script>
     <script type="text/javascript" src="js/markerwithlabel.js"></script>
 
     <!-- JQUERY -->
@@ -45,42 +45,27 @@
 </head>
 <body>
 <div id="map-canvas"></div>
-<button id="new-place" type="button">Thêm địa điểm</button>
+<button id="new-place" type="button">Add new place</button>
 
-<select id="cityCriterion" name="cityCriterion" placeholder="thanh pho">
+<select id="communityCriterion" name="communityCriterion" placeholder="community">
+    <option value="VN">Việt Nam</option>
 </select>
-
-<iframe name="hiddenFrame" class="hide"></iframe>
+<select id="cityCriterion" name="cityCriterion" placeholder="city"></select>
 
 <form id="new-place-form" action="/api/place" method="POST" enctype="multipart/form-data">
     <fieldset>
         <button id="new-place-form-close" style="float: right;" type="button">x</button>
         <table>
-            <!--
             <tr>
-                <td>Đất nước:</td>
-                <td>        
-                    <select onchange="print_state('state',this.selectedIndex);" id="country" name ="country">
-                    </select>               
-                </td>
+                <td>Title:</td>
+                <td><input required id="title" name="title" placeholder="Please enter the name of POI" size="30"
+                           title="Please enter the name of POI"/></td>
             </tr>
             <tr>
-                <td>Thành phố:</td>
-                <td>        
-                    <select name ="state" id ="state"></select>                
-                </td>
-            </tr>
-            -->
-            <tr>
-                <td>Tên địa điểm:</td>
-                <td><input required id="title" name="title" placeholder="nhập vào tên địa điểm" size="30"
-                           title="Hãy nhập tên địa điểm"/></td>
-            </tr>
-            <tr>
-                <td>Địa chỉ:</td>
+                <td>Address:</td>
                 <td><input required id="addressInput" name="address" onFocus="geolocate()" type="text"
-                           size="30" placeholder="nhập vào số nhà, tên đường, thành phố, quốc gia"
-                           title="Hãy nhập địa chỉ"></input></td>
+                           size="30" placeholder="Number, route, city, country"
+                           title="Please enter the address"></td>
                 <td>
                     <input type="hidden" id="street_number" name="streetNumber"/>
                     <input type="hidden" id="route" name="route">
@@ -92,68 +77,24 @@
                     <input type="hidden" id="longitude" name="longitude" value="34">
                 </td>
             </tr>
-            <!--
-                <tr>
-                    <td class="label">So nha</td>
-                    <td class="slimField"><input class="field" id="street_number"
-                                                 disabled="true"></input></td>
-                </tr>
-                <tr>
-                    <td class="label">Duong pho</td>
-                    <td class="wideField" colspan="2"><input class="field" id="route"
-                                                             disabled="true"></input></td>
-                </tr>
-                <tr>
-                    <td class="label">City</td>
-                    <td class="wideField" colspan="3"><input class="field" id="locality"
-                                                             disabled="true"></input></td>
-                </tr>
-                <tr>
-                    <td class="label">State</td>
-                    <td class="slimField"><input class="field"
-                                                 id="administrative_area_level_1" disabled="true"></input></td>
-                </tr>
-                <tr>
-                    <td class="label">Zip code</td>
-                    <td class="wideField"><input class="field" id="postal_code"
-                                                 disabled="true"></input></td>
-                </tr>
-                <tr>
-                    <td class="label">Country</td>
-                    <td class="wideField" colspan="3"><input class="field"
-                                                             id="country" disabled="true"></input></td>
-                </tr>-->
-
             <tr>
-                <td>Điện thoại</td>
-                <td><input id="telephone" name="telephone" type="text" size="30" placeholder="điện thoại liên hệ"></td>
+                <td>Type:</td>
+                <td><select id="placeType" name="placeType" placeholder="POI type"></select></td>
             </tr>
             <tr>
-                <td>Giờ mở cửa</td>
-                <td><input id="openTime" name="openTime" type="text" size="30" placeholder="nhập giờ mở cửa"></td>
+                <td>Original from:</td>
+                <td><select id="communityCode" name="communityCode" placeholder="city"></select></td>
             </tr>
             <tr>
-                <td>Trang web</td>
-                <td><input id="referenceUrl" name="referenceUrl" type="text" size="30"
-                           placeholder="nhập đường link tới trang web"></td>
-            </tr>
-            <tr>
-                <td>Thông tin chung:</td>
-                <td><textarea id="information" name="information" rows="2" cols="30"
-                              placeholder="nhập thông tin chi tiết"></textarea></td>
-            </tr>
-
-            <tr>
-                <td>Ảnh chụp:</td>
+                <td>Photo:</td>
                 <td><input type="file" name="file" id="file" accept="image/*"></td>
             </tr>
+            <div id="contentType">
 
-            <tr>
-                <td><input type="hidden" id="communityCode" name="communityCode" value="vietnam"></td>
-            </tr>
-            <tr>
-                <td><input type="hidden" id="placeType" name="placeType" value="restaurant"></td>
-            </tr>
+
+            </div>
+
+
             <tr>
                 <td></td>
                 <td><input type="button" id="newPlaceFormSubmit" value="Gửi đi"></td>
