@@ -16,6 +16,10 @@ table {
     width: 300px;
 }
 
+table, th, td, span {
+    white-space: nowrap;
+}
+
 <!-- GOOGLE COPYRIGHT -->
 .button{
     color: white;
@@ -68,7 +72,7 @@ table {
     font-size: 12px;
     margin: -36px;
     position: absolute;
-    right: 50px;
+    right: 75px;
     top: 81px;
 }
 

@@ -193,7 +193,7 @@ function displayPlace(item, timeOut) {
         } else {
             var image = 'icon/restaurant_vietnamese.png';
             if (item.imagePath) {
-                image = '"' + item.imagePath + '"';
+                image = item.imagePath;
             }
             placemarker = new MarkerWithLabel({
                 position: servicePos,

@@ -4,22 +4,40 @@
 function getLanguageResources() {
     var fr = new Array();
     var en = new Array();
+    var vn = new Array();
+
+    fr['AddNewPlace'] = 'Ajouter une place';
+    en['AddNewPlace'] = 'Add a new place';
+    vn['AddNewPlace'] = 'Thêm địa điểm';
+
     fr['Title'] = 'Titre';
     en['Title'] = 'Title';
-    fr['new-place'] = 'Ajouter une place';
-    en['new-place'] = 'Add a new place';
-    fr['settings'] = "paramètres";
-    en['settings'] = "settings";
-    fr['default_feed'] = "Flux par défaut";
-    en['default_feed'] = "Default feed";
-    fr['hidden'] = "Masquer";
-    en['hidden'] = " Hidden";
-    fr['save_settings'] = "Enregistrer les paramètres";
-    en['save_settings'] = "Save settings";
+    vn['Title'] = 'Tiêu đề';
+
+    fr['Address'] = 'Adresse';
+    en['Address'] = 'Address';
+    vn['Address'] = 'Địa chỉ';
+
+    fr['Type'] = "Type";
+    en['Type'] = "Type";
+    vn['Type'] = "Phân loại";
+
+    fr['OriginalFrom'] = "Original de";
+    en['OriginalFrom'] = "Original from";
+    vn['OriginalFrom'] = "Đến từ";
+
+    fr['Photo'] = "Photo";
+    en['Photo'] = "Photo";
+    vn['Photo'] = "Hình ảnh";
+
+    fr['Submit'] = "Soumettre";
+    en['Submit'] = "Submit";
+    vn['Submit'] = "Gửi đi";
 
     var resources = new Array();
     resources['fr'] = fr;
     resources['en'] = en;
+    resources['vn'] = vn;
 
     return resources;
 }
@@ -30,12 +48,14 @@ function changeLanguage(lang) {
     $("span[name='lbl']").each(function (i, elt) {
         $(elt).text(langResources[$(elt).attr("caption")]);
     });
+
+    $('.submit').val(langResources["Submit"]);
 }
 
 $(function () {
     //$("#multiLanguages").load("view/multiLanguages.html");
-    $("input[name='radio-language']").click(function () {
+    changeLanguage('vn');
+    $(".multiLanguages").change(function () {
         changeLanguage($(this).val());
-
     });
 });

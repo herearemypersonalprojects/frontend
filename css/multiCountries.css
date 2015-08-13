@@ -1,0 +1,17 @@
+select.multiLanguages option {
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    padding-left: 30px;
+}
+
+select#multiLanguages option[value="EN"] {
+    background-image: url(../flags/england.png);
+}
+
+select#multiLanguages option[value="FR"] {
+    background-image: url(../flags/france.png);
+}
+
+select#multiLanguages option[value="VN"] {
+    background-image: url(../flags/vietnam.png);
+}

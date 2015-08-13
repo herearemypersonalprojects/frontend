@@ -46,31 +46,31 @@
 </head>
 <body>
 <div id="map-canvas"></div>
-<button id="new-place" type="button"><span name="lbl" caption="new-place"></span></button>
 
 <select id="communityCriterion" name="communityCriterion" placeholder="community">
     <option value="VN">Việt Nam</option>
 </select>
 <select id="cityCriterion" name="cityCriterion" placeholder="city"></select>
 
-<div id="multiLanguages">
-    <input class="radio-language" type="radio" id="radioEnglish" name="radio-language" value="en"/><label
-        for="radioEnglish">English</label>
-    <input class="radio-language" type="radio" id="radioFrench" name="radio-language" value="fr"/><label
-        for="radioFrench">Français</label><br/>
-</div>
+<select name="multiLanguages" id="multiLanguages" class="multiLanguages">
+    <option style="background:url('flags/england.png') no-repeat;" value="en">English</option>
+    <option style="background-image:url(flags/france.png);" value="fr">Français</option>
+    <option style="background-image:url(flags/vietnam.png);" value="vn" selected>Tiếng Việt</option>
+</select>
+
+<button id="new-place" type="button"><span name="lbl" caption="AddNewPlace"></span></button>
 
 <form id="new-place-form" action="/api/place" method="POST" enctype="multipart/form-data">
     <fieldset>
         <button id="new-place-form-close" style="float: right;" type="button">x</button>
         <table>
             <tr>
-                <td><span name="lbl" caption="Title"></span>:</td>
+                <td><span name="lbl" caption="Title"></span></td>
                 <td><input required id="title" name="title" placeholder="Please enter the name of POI" size="30"
                            title="Please enter the name of POI"/></td>
             </tr>
             <tr>
-                <td>Address:</td>
+                <td><span name="lbl" caption="Address"></span></td>
                 <td><input required id="addressInput" name="address" onFocus="geolocate()" type="text"
                            size="30" placeholder="Number, route, city, country"
                            title="Please enter the address"></td>
@@ -86,15 +86,18 @@
                 </td>
             </tr>
             <tr>
-                <td>Type:</td>
-                <td><select id="placeType" name="placeType" placeholder="POI type"></select></td>
+                <td><span name="lbl" caption="Type"></span></td>
+                <td><select id="placeType" name="placeType" placeholder="POI type">
+                    <option value="restaurant">restaurant</option>
+                </select></td>
             </tr>
             <tr>
-                <td>Original from:</td>
-                <td><select id="communityCode" name="communityCode" placeholder="city"></select></td>
+                <td><span name="lbl" caption="OriginalFrom"></span></td>
+                <td><select style="width: 220px" id="communityCode" name="communityCode" placeholder="city"></select>
+                </td>
             </tr>
             <tr>
-                <td>Photo:</td>
+                <td><span name="lbl" caption="Photo"></span></td>
                 <td><input type="file" name="file" id="file" accept="image/*"></td>
             </tr>
             <div id="contentType">
@@ -105,7 +108,7 @@
 
             <tr>
                 <td></td>
-                <td><input type="button" id="newPlaceFormSubmit" value="Gửi đi"></td>
+                <td><input class="submit" type="button" id="newPlaceFormSubmit" value="Gửi đi"></td>
 
             </tr>
         </table>
