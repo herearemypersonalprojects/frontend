@@ -22,9 +22,9 @@ function getLanguageResources() {
     en['Type'] = "Type";
     vn['Type'] = "Phân loại";
 
-    fr['OriginalFrom'] = "Original de";
-    en['OriginalFrom'] = "Original from";
-    vn['OriginalFrom'] = "Đến từ";
+    fr['OriginalFrom'] = "Communauté";
+    en['OriginalFrom'] = "Community";
+    vn['OriginalFrom'] = "Cộng đồng";
 
     fr['Photo'] = "Photo";
     en['Photo'] = "Photo";
@@ -59,3 +59,55 @@ $(function () {
         changeLanguage($(this).val());
     });
 });
+
+function initTypeLabels() {
+    var en = new Array();
+    var vn = new Array();
+    var fr = new Array();
+
+    en['RESTAURANT'] = "Restaurant";
+    vn['RESTAURANT'] = "Quán ăn";
+
+    en['ADMINISTRATION'] = "Administration";
+    vn['ADMINISTRATION'] = "Cơ quan";
+
+    en['COMPANY'] = "Company";
+    vn['COMPANY'] = "Công ty";
+
+    en['ASSOCIATION'] = "Association";
+    vn['ASSOCIATION'] = "Hiệp hội";
+
+    en['HEALTH'] = "Health";
+    vn['HEALTH'] = "Sức khỏe"; // Pharmacy & Doctor
+
+    en['MARKET'] = "Market";
+    vn['MARKET'] = "Chợ, thực phẩm";
+
+    en['BEAUTY'] = "Beauty";
+    vn['BEAUTY'] = "Chăm sóc sắc đẹp";
+
+    en['TOURISM'] = "Tourism";
+    vn['TOURISM'] = "Du lịch";
+
+    en['HISTORY'] = "History";
+    vn['HISTORY'] = "Di tích lịch sử";
+
+    en['EVENT'] = "Event";
+    vn['EVENT'] = "Sự kiện";
+
+    en['INDIVIDUAL'] = "individual";
+    vn['INDIVIDUAL'] = "Cá nhân";
+
+    var resources = new Array();
+    resources['fr'] = fr;
+    resources['en'] = en;
+    resources['vn'] = vn;
+
+    return resources;
+}
+
+function getTypeLabel(typeCode) {
+    var langResources = initTypeLabels()[$("#multiLanguages").val()];
+
+    return langResources[typeCode];
+}

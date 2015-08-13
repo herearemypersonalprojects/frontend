@@ -9,7 +9,17 @@ $(function () {
         //$('#state').val('Paris');
         $('#new-place-form')[0].reset();
         $('#new-place-form').show();
-        fillCountries();
+
+        var communityCode = $('#communityCode');
+        if (communityCode.has('option').length < 1) {
+            fillCountries(communityCode);
+        }
+        communityCode.val($('#communityCriterion').val());
+
+        var placeType = $('#placeType');
+        if (placeType.has('option').length < 1) {
+            fillPlaceTypes(placeType);
+        }
     });
 
     $('#new-place-form-close').click(function () {
@@ -28,18 +38,41 @@ $(function () {
 
 });
 
-function fillCountries() {
+function fillPlaceTypes(placeType) {
+
+    $.ajax({
+        type: "get",
+        url: "/api/getListAllTypes",
+        dataType: "json",
+        success: function (data) {
+            data = $(data);
+            for (var i = 0; i < data.length; i++) {
+                placeType
+                    .append($("<option></option>")
+                        .attr("value", data[i])
+                        .text(getTypeLabel(data[i])));
+            }
+            ;
+            placeType.val('RESTAURANT');
+        },
+        error: function (request, status, error) {
+            console.log(request.responseText + ":" + status + ":" + error);
+        }
+    });
+}
+
+function fillCountries(communityCode) {
     $.ajax({
         type: "get",
         url: "/api/getListAllCountries",
         success: function (data) {
             $(data).each(function (idx, item) {
-                $('#communityCode')
+                communityCode
                     .append($("<option></option>")
                         .attr("value", item.code)
                         .text(item.nativeName));
             });
-            $('#communityCode').val($('#communityCriterion').val());
+            communityCode.val($('#communityCriterion').val());
         },
         error: function (request, status, error) {
             console.log(request.responseText + ":" + status + ":" + error);
