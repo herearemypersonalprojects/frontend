@@ -34,7 +34,6 @@
     <!-- MY JAVASCRIPTS -->
     <script src="js/tool.js"></script>
     <script src="js/common.js"></script>
-    <script src="js/file.js"></script>
     <script src="js/lang.js"></script>
     <script src="js/map.js"></script>
     <script src="model/placeObject.js"></script>
@@ -42,22 +41,31 @@
     <script src="js/place.js"></script>
 
     <script src="controller/criteria.js"></script>
+
+    <script src="js/multiLanguages.js"></script>
 </head>
 <body>
 <div id="map-canvas"></div>
-<button id="new-place" type="button">Add new place</button>
+<button id="new-place" type="button"><span name="lbl" caption="new-place"></span></button>
 
 <select id="communityCriterion" name="communityCriterion" placeholder="community">
     <option value="VN">Việt Nam</option>
 </select>
 <select id="cityCriterion" name="cityCriterion" placeholder="city"></select>
 
+<div id="multiLanguages">
+    <input class="radio-language" type="radio" id="radioEnglish" name="radio-language" value="en"/><label
+        for="radioEnglish">English</label>
+    <input class="radio-language" type="radio" id="radioFrench" name="radio-language" value="fr"/><label
+        for="radioFrench">Français</label><br/>
+</div>
+
 <form id="new-place-form" action="/api/place" method="POST" enctype="multipart/form-data">
     <fieldset>
         <button id="new-place-form-close" style="float: right;" type="button">x</button>
         <table>
             <tr>
-                <td>Title:</td>
+                <td><span name="lbl" caption="Title"></span>:</td>
                 <td><input required id="title" name="title" placeholder="Please enter the name of POI" size="30"
                            title="Please enter the name of POI"/></td>
             </tr>
