@@ -4,14 +4,14 @@ select.multiLanguages option {
     padding-left: 30px;
 }
 
-select#multiLanguages option[value="EN"] {
+select#multiLanguages option[value="en"] {
     background-image: url(../flags/england.png);
 }
 
-select#multiLanguages option[value="FR"] {
+select#multiLanguages option[value="fr"] {
     background-image: url(../flags/france.png);
 }
 
-select#multiLanguages option[value="VN"] {
+select#multiLanguages option[value="vn"] {
     background-image: url(../flags/vietnam.png);
 }
