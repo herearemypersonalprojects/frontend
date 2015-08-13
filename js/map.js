@@ -339,7 +339,7 @@ function getCity(results) {
 function showMarker() {
     var latlng = new google.maps.LatLng(latitude, longitude);
     map.setCenter(new google.maps.LatLng(latitude, longitude));
-
+    map.setZoom(13);
     if (marker != null) marker.setMap(null);
     marker = new MarkerWithLabel({
         map: map,
