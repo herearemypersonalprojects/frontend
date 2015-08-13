@@ -49,17 +49,15 @@ table, th, td, span {
 }
 
 #new-place {
-    width: 150px;
-    box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
     background-color: white;
-    padding: 10px;
+    box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.298);
+    color: black;
     font-family: Roboto, Arial;
-    font-size: 13px;
-    margin: 15px;
+    height: 30px;
     position: absolute;
-    right: 114px;
-    top: -8px;
-    color:black;
+    right: 125px;
+    top: 9px;
+    width: 150px;
 }
 
 #new-place-form {

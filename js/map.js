@@ -1,5 +1,5 @@
 var paris = new google.maps.LatLng(48.856614, 2.3522219000000177);
-var zoomLevel = 15;
+var zoomLevel = 13;
 var zoomMax = 17;
 var zoomMin = 2;
 var map;
@@ -28,6 +28,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 function initialize() {
     map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: zoomLevel,
+        minZoom: zoomMin,
+        maxZoom: zoomMax,
+        //scrollwheel: false,
         panControl: false,
         zoomControl: true,
         mapTypeControl: false,
@@ -36,7 +39,7 @@ function initialize() {
         overviewMapControl: true,
         zoomControlOptions: {
             style: google.maps.ZoomControlStyle.SMALL,
-            position: google.maps.ControlPosition.RIGHT_TOP
+            position: google.maps.ControlPosition.LEFT_TOP
         },
         center: paris
     });
@@ -62,7 +65,7 @@ function initialize() {
             loadPlacesFromCurrentView(map);
         }, 1000);
 
-        zoomLevel = map.getZoom();
+        var zoomLevel = map.getZoom();
         if (zoomLevel > zoomMax) {
             map.set(zoomMax);
         } else if (zoomLevel < zoomMin) {
@@ -164,8 +167,7 @@ function displayPlace(item, timeOut) {
             content: content
         });
 
-        zoomLevel = map.getZoom();
-        console.log(zoomLevel);
+        var zoomLevel = map.getZoom();
         if (zoomLevel < 7) {
             /*
             var goldStar = {
@@ -195,15 +197,23 @@ function displayPlace(item, timeOut) {
             if (item.imagePath) {
                 //image = item.imagePath;
             }
-            placemarker = new MarkerWithLabel({
+            placemarker = new google.maps.Marker({
                 position: servicePos,
+                map: map,
+                // label: "Quoc Anh",
+                icon: "icon/restaurant_vietnamese.png"
+            });
+            /*
+
+             new MarkerWithLabel({
+             position: servicePos,
                 raiseOnDrag: true,
                 icon: image,//"icon/restaurant_vietnamese.png",
                 map: map,
                 labelContent: "4.5/5",
                 labelAnchor: new google.maps.Point(22, 0),
                 labelClass: "labels" // the CSS class for the label
-            });
+             });*/
         }
 
 
@@ -236,7 +246,7 @@ function loadPlaces_tobedeleted() {
 } // [END loadPlaces]	
 
 // [START region_fillform]
-function fillInAddress() {
+function fillInAddress(z) {
     // Get the place details from the autocomplete object.
     var place = autocomplete.getPlace();
 
@@ -251,13 +261,13 @@ function fillInAddress() {
         map.fitBounds(place.geometry.viewport);
     } else {
         map.setCenter(place.geometry.location);
-        map.setZoom(17);  // Why 17? Because it looks good.
+        map.setZoom(zoomLevel);
     }
 
 
     latitude = place.geometry.location.lat();
     longitude = place.geometry.location.lng();
-    showMarker();
+    showMarker(zoomLevel);
     for (var component in componentForm) {
         document.getElementById(component).value = '';
         document.getElementById(component).disabled = false;
@@ -295,10 +305,10 @@ function geolocate() {
 
 
 // [START getCity]
-function getCity(results) {
+function getCity(results, z) {
     latitude = results[0].geometry.location.lat();
     longitude = results[0].geometry.location.lng();
-    showMarker();
+    showMarker(z);
 
     //break down the three dimensional array into simpler arrays
     for (i = 0; i < results.length; ++i) {
@@ -336,14 +346,14 @@ function getCity(results) {
 } // [START getCity]
 
 // [START showMarker]
-function showMarker() {
+function showMarker(z) {
     var latlng = new google.maps.LatLng(latitude, longitude);
     map.setCenter(new google.maps.LatLng(latitude, longitude));
-    map.setZoom(13);
+    map.setZoom(z);
     if (marker != null) marker.setMap(null);
     marker = new MarkerWithLabel({
         map: map,
-        //icon: "icon/restaurant_vietnamese.png",
+        icon: "icon/you_are_here.png",
         position: latlng,
         draggable: true,
         raiseOnDrag: true,

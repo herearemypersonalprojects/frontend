@@ -25,17 +25,42 @@ html, body, #map-canvas {
     position: absolute;
     right: 762px;
     top: -10px;
-    width: 150px;
+    width: 159px;
 }
 
-#multiLanguages {
+#placeTypeCriterion {
     box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.298);
     font-family: Roboto, Arial;
     font-size: 13px;
     margin: 15px;
     padding: 10px;
     position: absolute;
-    right: 386px;
+    right: 377px;
     top: -10px;
-    width: 150px;
+    width: 190px;
 }
+
+#multiLanguages {
+    box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.298);
+    font-family: Roboto, Arial;
+    margin: 15px;
+    padding: 10px;
+    position: absolute;
+    right: -17px;
+    top: -10px;
+    width: 125px;
+}
+
+.chamtron {
+    width: 10px;
+    height: 10px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    border: 1px solid #ff4146;
+    background-color: #ff8d90;
+    position: relative;
+    bottom: 5px;
+    right: 5px;
+}
+

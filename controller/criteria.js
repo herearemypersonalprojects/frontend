@@ -19,6 +19,11 @@ $(function () {
         }
     });
 
+    // list available place types
+    fillPlaceTypes($('#placeTypeCriterion'));
+
+    // action to select place type
+
 
     // action to select a city
     $('#cityCriterion').change(function () {
@@ -29,12 +34,9 @@ $(function () {
 
         var address = $("#cityCriterion option:selected").text();
         $('#addressInput').val(address);
-        extractCityFromAddress(address);
+        extractCityFromAddress(address, zoomLevel);
         setTimeout(function () {
             loadPlaces(JSONObject);
         }, 100);
-
-
-
     });
 });

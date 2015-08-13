@@ -33,13 +33,13 @@ $(function () {
     // Extract city, country from address input by user when creating a new place
 
     $('#addressInput').blur(function () {
-        extractCityFromAddress($('#addressInput').val());
+        extractCityFromAddress($('#addressInput').val(), zoomMax);
     });
 
 });
 
 function fillPlaceTypes(placeType) {
-
+    placeType.find('option').remove().end();
     $.ajax({
         type: "get",
         url: "/api/getListAllTypes",
@@ -80,13 +80,13 @@ function fillCountries(communityCode) {
     });
 }
 
-function extractCityFromAddress(address) {
+function extractCityFromAddress(address, z) {
     geocoder.geocode({'address': address}, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            getCity(results);
+            getCity(results, z);
         } else {
             $('#addressInput').addClass("warning");
-            alert('Không tìm thấy địa chỉ này :(');
+            //alert('Không tìm thấy địa chỉ này :(');
         }
     });
 }

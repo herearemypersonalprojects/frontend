@@ -48,11 +48,18 @@
 <body>
 <div id="map-canvas"></div>
 
+<!-- Select community -->
 <select id="communityCriterion" name="communityCriterion" placeholder="community">
     <option value="VN">Việt Nam</option>
 </select>
+
+<!-- Select city to look at -->
 <select id="cityCriterion" name="cityCriterion" placeholder="city"></select>
 
+<!-- select type of places to look at -->
+<select id="placeTypeCriterion" name="placeTypeCriterion" class="placeType"></select>
+
+<!-- select language -->
 <select name="multiLanguages" id="multiLanguages" class="multiLanguages">
     <option value="en">English</option>
     <option value="fr">Français</option>
@@ -88,7 +95,7 @@
             </tr>
             <tr>
                 <td><span name="lbl" caption="Type"></span></td>
-                <td><select id="placeType" name="placeType"></select></td>
+                <td><select id="placeType" name="placeType" class="placeType"></select></td>
             </tr>
             <tr>
                 <td><span name="lbl" caption="OriginalFrom"></span></td>

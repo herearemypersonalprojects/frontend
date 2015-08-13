@@ -57,6 +57,7 @@ $(function () {
     changeLanguage('vn');
     $(".multiLanguages").change(function () {
         changeLanguage($(this).val());
+        fillPlaceTypes($('.placeType'));
     });
 });
 
@@ -66,36 +67,51 @@ function initTypeLabels() {
     var fr = new Array();
 
     en['RESTAURANT'] = "Restaurant";
-    vn['RESTAURANT'] = "Quán ăn";
+    fr['RESTAURANT'] = "Restaurant";
+    vn['RESTAURANT'] = "Ẩm thực";
 
     en['ADMINISTRATION'] = "Administration";
-    vn['ADMINISTRATION'] = "Cơ quan";
+    fr['ADMINISTRATION'] = "Administration";
+    vn['ADMINISTRATION'] = "Cơ quan hành chính";
 
     en['COMPANY'] = "Company";
-    vn['COMPANY'] = "Công ty";
+    fr['COMPANY'] = "Société";
+    vn['COMPANY'] = "Công ty, doanh nghiệp";
 
     en['ASSOCIATION'] = "Association";
-    vn['ASSOCIATION'] = "Hiệp hội";
+    fr['ASSOCIATION'] = "Association";
+    vn['ASSOCIATION'] = "Hiệp hội, tổ chức";
 
     en['HEALTH'] = "Health";
+    fr['HEALTH'] = "Santé";
     vn['HEALTH'] = "Sức khỏe"; // Pharmacy & Doctor
 
     en['MARKET'] = "Market";
+    fr['MARKET'] = "Marché";
     vn['MARKET'] = "Chợ, thực phẩm";
 
     en['BEAUTY'] = "Beauty";
+    fr['BEAUTY'] = "Beauté";
     vn['BEAUTY'] = "Chăm sóc sắc đẹp";
 
     en['TOURISM'] = "Tourism";
+    fr['TOURISM'] = "Tourisme";
     vn['TOURISM'] = "Du lịch";
 
     en['HISTORY'] = "History";
+    fr['HISTORY'] = "Site historique";
     vn['HISTORY'] = "Di tích lịch sử";
 
+    en['RELIGION'] = "Religion";
+    fr['RELIGION'] = "Religion";
+    vn['RELIGION'] = "Tôn giáo, tín ngưỡng";
+
     en['EVENT'] = "Event";
+    fr['EVENT'] = "Evénement";
     vn['EVENT'] = "Sự kiện";
 
-    en['INDIVIDUAL'] = "individual";
+    en['INDIVIDUAL'] = "Individual";
+    fr['INDIVIDUAL'] = "Personnage";
     vn['INDIVIDUAL'] = "Cá nhân";
 
     var resources = new Array();
