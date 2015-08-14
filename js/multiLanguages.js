@@ -57,7 +57,8 @@ $(function () {
     changeLanguage('vn');
     $(".multiLanguages").change(function () {
         changeLanguage($(this).val());
-        fillPlaceTypes($('.placeType'));
+        fillPlaceTypes($('#placeTypeCriterion'), "/api/types");
+        fillPlaceTypes($('#placeType'), "/api/getListAllTypes");
     });
 });
 

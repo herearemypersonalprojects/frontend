@@ -8,7 +8,7 @@ var marker;
 var placemarker;
 var infowindow;
 var displayPlaceController = [];
-var displayedPlace = [];
+var lstPlaces = new Array();
 var realTimeUpdateController;
 var latitude;
 var longitude;
@@ -75,6 +75,18 @@ function initialize() {
 
     });
 
+    google.maps.event.addListener(map, 'idle', function () {
+        /*
+         lstPlaces.map( function(item) {
+         var info = new google.maps.InfoWindow({
+         content: item.information,
+         map: map,
+         position: new google.maps.LatLng(item.latitude, item.longitude)
+         });
+         })
+         */
+    });
+
     setTimeout(function () {
         loadPlacesFromCurrentView(map);
     }, 1000);
@@ -131,7 +143,7 @@ function loadPlaces(JSONObject) {
 
             $(data).each(function (idx, item) {
                 // if place was not displayed or the passed zoom level is smaller than current zoom
-                if (indexOf.call(displayedPlace, item.id) < 0) {
+                if (typeof lstPlaces[item.id] == 'undefined') {
                     displayPlace(item, idx * 20);
                 }
             });
@@ -163,67 +175,43 @@ function displayPlace(item, timeOut) {
 
         var servicePos = new google.maps.LatLng(item.latitude, item.longitude);
 
-        infowindow = new google.maps.InfoWindow({
+
+        var m = new google.maps.Marker({
+            position: servicePos,
+            icon: "icon/" + item.placeType + ".png",
+            map: map
+        });
+
+
+        var info = new google.maps.InfoWindow({
             content: content
         });
 
-        var zoomLevel = map.getZoom();
-        if (zoomLevel < 7) {
-            /*
-            var goldStar = {
-                path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-                fillColor: 'yellow',
-                fillOpacity: 0.8,
-             scale: 0.1,
-                strokeColor: 'gold',
-                strokeWeight: 14
-            };
-             */
-            placemarker = new google.maps.Marker({
-                position: servicePos,
-                map: map,
-                icon: "icon/restaurant_vietnamese.png"
-            });
-
-        } else if (zoomLevel < 14) {
-            placemarker = new google.maps.Marker({
-                position: servicePos,
-                map: map,
-                // label: "Quoc Anh",
-                icon: "icon/restaurant_vietnamese.png"
-            });
-        } else {
-            var image = 'icon/restaurant_vietnamese.png';
-            if (item.imagePath) {
-                //image = item.imagePath;
-            }
-            placemarker = new google.maps.Marker({
-                position: servicePos,
-                map: map,
-                // label: "Quoc Anh",
-                icon: "icon/restaurant_vietnamese.png"
-            });
-            /*
-
-             new MarkerWithLabel({
-             position: servicePos,
-                raiseOnDrag: true,
-                icon: image,//"icon/restaurant_vietnamese.png",
-                map: map,
-                labelContent: "4.5/5",
-                labelAnchor: new google.maps.Point(22, 0),
-                labelClass: "labels" // the CSS class for the label
-             });*/
-        }
-
-
-        google.maps.event.addListener(placemarker, "click", function (e) {
-            infowindow.open(map, this);
+        m.addListener('click', function () {
+            info.open(map, m);
         });
 
-        displayedPlace.push(item.id);
+        var newplace = {
+            title: item.title,
+            information: content,
+            id: item.id,
+            latitude: item.latitude,
+            longitude: item.longitude
+        };
+        lstPlaces[item.id] = newplace;
     }, timeOut));
 }
+
+// START attachInformation
+function attachInformation(placemarker, content) {
+    var info = new google.maps.InfoWindow({
+        content: content
+    });
+
+    marker.addListener('click', function () {
+        info.open(placemarker.get('map'), placemarker);
+    });
+} // END attachInformation
 
 // [START loadPlaces]
 //load places from database for a city (the selected city) 

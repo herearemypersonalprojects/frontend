@@ -20,10 +20,19 @@ $(function () {
     });
 
     // list available place types
-    fillPlaceTypes($('#placeTypeCriterion'));
+    fillPlaceTypes($('#placeTypeCriterion'), "/api/types");
 
     // action to select place type
+    $('#placeTypeCriterion').change(function () {
+        var that = $(this);
+        var JSONObject = {
+            "type": that.val()
+        };
 
+        setTimeout(function () {
+            loadPlaces(JSONObject);
+        }, 100);
+    });
 
     // action to select a city
     $('#cityCriterion').change(function () {

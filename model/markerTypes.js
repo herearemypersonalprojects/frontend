@@ -3,7 +3,7 @@
  */
 window.markerTypes = {
     restaurant: {
-        icon: "img/marker/pin_velib.png",
+        icon: "../icon/restaurant.png",
         visible: true,
         markerCollection: [],
         markerLocation: []

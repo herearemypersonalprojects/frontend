@@ -2,24 +2,28 @@ $(function () {
 
     // Add new place
     $('#new-place-form').hide();
+
+    $(window).keydown(function (event) {
+        if (event.keyCode == 27) {
+            $('#new-place-form').hide();
+        }
+        if (event.ctrlKey && event.keyCode == 78) {
+            console.log("Hey! Ctrl+N event captured!");
+            showNewForm();
+            event.preventDefault();
+        }
+        if (event.ctrlKey && event.keyCode == 84) {
+            console.log("Hey! Ctrl+T event captured!");
+            event.preventDefault();
+        }
+        if (event.ctrlKey && event.keyCode == 83) {
+            console.log("Hey! Ctrl+S event captured!");
+            event.preventDefault();
+        }
+    });
+
     $('#new-place').click(function () {
-        //print_country("country");
-        //print_state('state', 75);
-        //$('#country').val('France');
-        //$('#state').val('Paris');
-        $('#new-place-form')[0].reset();
-        $('#new-place-form').show();
-
-        var communityCode = $('#communityCode');
-        if (communityCode.has('option').length < 1) {
-            fillCountries(communityCode);
-        }
-        communityCode.val($('#communityCriterion').val());
-
-        var placeType = $('#placeType');
-        if (placeType.has('option').length < 1) {
-            fillPlaceTypes(placeType);
-        }
+        showNewForm();
     });
 
     $('#new-place-form-close').click(function () {
@@ -38,11 +42,29 @@ $(function () {
 
 });
 
-function fillPlaceTypes(placeType) {
+function showNewForm() {
+    $('#new-place-form')[0].reset();
+    $('#new-place-form').show();
+
+    var communityCode = $('#communityCode');
+    if (communityCode.has('option').length < 1) {
+        fillCountries(communityCode);
+    }
+    communityCode.val($('#communityCriterion').val());
+
+    var placeType = $('#placeType');
+    if (placeType.has('option').length < 1) {
+        fillPlaceTypes(placeType, "/api/getListAllTypes");
+    }
+
+    $('#title').focus();
+}
+
+function fillPlaceTypes(placeType, apiUrl) {
     placeType.find('option').remove().end();
     $.ajax({
         type: "get",
-        url: "/api/getListAllTypes",
+        url: apiUrl,
         dataType: "json",
         success: function (data) {
             data = $(data);
