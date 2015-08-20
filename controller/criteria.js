@@ -43,7 +43,7 @@ $(function () {
 
         var address = $("#cityCriterion option:selected").text();
         $('#addressInput').val(address);
-        extractCityFromAddress(address, zoomLevel);
+        showLocation(address);
         setTimeout(function () {
             loadPlaces(JSONObject);
         }, 100);

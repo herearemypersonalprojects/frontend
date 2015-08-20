@@ -1,17 +1,17 @@
-var paris = new google.maps.LatLng(48.856614, 2.3522219000000177);
+var latitude = 48.856614;
+var longitude = 2.3522219000000177;
+var paris = new google.maps.LatLng(latitude, longitude);
 var zoomLevel = 13;
 var zoomMax = 17;
 var zoomMin = 2;
 var map;
 var geocoder;
 var marker;
-var placemarker;
+var isMakerDrag = false; // User move marker to choose a place
 var infowindow;
 var displayPlaceController = [];
 var lstPlaces = new Array();
 var realTimeUpdateController;
-var latitude;
-var longitude;
 var autocomplete;
 var componentForm = {
     street_number: 'short_name',
@@ -72,7 +72,6 @@ function initialize() {
             map.setZoom(zoomMin);
         }
         ;
-
     });
 
     google.maps.event.addListener(map, 'idle', function () {
@@ -87,11 +86,46 @@ function initialize() {
          */
     });
 
+    google.maps.event.addListener(map, 'click', function (event) {
+        placeMarker(event.latLng);
+    });
+    /*
+     google.maps.event.addListener(marker, 'dragstart', function () {
+     if (infowindow != null)
+     infowindow.close();
+     });
+     google.maps.event.addListener(marker, 'dragend', function () {
+     getAddress(true);
+     });
+     */
     setTimeout(function () {
         loadPlacesFromCurrentView(map);
     }, 1000);
 
+    placeMarker(paris);
 } // [END initialize]
+
+// START PLACE MARKER
+//Add maker
+function placeMarker(location) {
+    try {
+        if (marker != null) marker.setMap(null);
+        marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            draggable: true
+        });
+        google.maps.event.addListener(marker, 'dragstart', function () {
+            if (infowindow != null)
+                infowindow.close();
+        });
+        google.maps.event.addListener(marker, 'dragend', getAddress);
+        map.setCenter(location);
+        getAddress();
+    } catch (ex) {
+        console.log(ex);
+    }
+} // END PLACE MARKER
 
 function realtimeUpdate() {
     clearInterval(realTimeUpdateController);
@@ -293,10 +327,16 @@ function geolocate() {
 
 
 // [START getCity]
-function getCity(results, z) {
+function getCity(results) {
     latitude = results[0].geometry.location.lat();
     longitude = results[0].geometry.location.lng();
-    showMarker(z);
+
+    // RESET
+    $('#locality').val("");
+    $('#country').val("");
+    $('#postal_code').val("");
+    $('#street_number').val("");
+    $('#route').val("");
 
     //break down the three dimensional array into simpler arrays
     for (i = 0; i < results.length; ++i) {
@@ -369,3 +409,151 @@ function toggleBounce() {
         marker.setAnimation(google.maps.Animation.BOUNCE);
     }
 } // END toggleBounce
+
+// START SHOWADDRESS
+function showAdd(address) {
+    try {
+        var point = marker.getPosition();
+//alert(point);
+        var lat = point.lat();
+        var lng = point.lng();
+        document.getElementById('latitude').value = lat;
+        document.getElementById('longitude').value = lng;
+        var latlng = new google.maps.LatLng(lat, lng);
+//alert(latlng);
+        geocoder.geocode({'latLng': latlng}, function (results2, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                if (results2[0]) {
+                    if (infowindow != null) {
+                        if (address != '') {
+                            infowindow.setContent("<span id='address'><b>" + bds_lang.GoogleMaps.Address + " : </b>" + address + "</span>");
+                        } else {
+                            infowindow.setContent("<span id='address'><b>" + bds_lang.GoogleMaps.Address + " : </b>" + results2[0].formatted_address + "</span>");
+                        }
+                        infowindow.open(map, marker);
+                    }
+                    addressReturn = results2[0].formatted_address;
+                }
+            }
+            else {
+                console.log("Geocoder failed due to: " + status);
+            }
+        });
+        map.setCenter(point);
+    } catch (ex) {
+        console.log(ex);
+    }
+} // END SHOWADDRESS
+
+// START SHOW LOCATION
+function ShowLocation() {
+    var address = "";
+    var country = $('#country').val();
+    var cityCode = $('#locality').val();
+    var cp = $('#postal_code').val();
+    var street = $('#route').val();
+    var number = $('#street_number').val();
+
+    if (number != '' && number != 0) {
+        address = number;
+    }
+
+    address = address + street + ", ";
+
+    if (cityCode != '' && cityCode != 0) {
+        address = address + $('#city').children('option:selected').text() + " " + cp + ", ";
+    }
+    address = address + $('#country').children('option:selected').text();
+
+    var mySplitResult = strLatLng().split(",");
+    $("#latitude").val(mySplitResult[0]);
+    $("#longitude").val(mySplitResult[1]);
+    showLocation(address);
+} // END SHOW LOCATION
+
+// START LOCATION WITH ADDRESS
+function showLocation(address) {
+    if (address != null && address != '') {
+        var add = address.split(',');
+        address = add.join(',');
+
+        if (marker != null) marker.setMap(null);
+        geocoder.geocode({'address': address}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                getCity(results);
+                var lat = '';
+                var lng = '';
+                lat = results[0].geometry.location.lat();
+                lng = results[0].geometry.location.lng();
+                addressReturn = results[0].formatted_address;
+                var latlng = new google.maps.LatLng(lat, lng);
+                map.setCenter(results[0].geometry.location);
+                marker = new google.maps.Marker({
+                    map: map,
+                    position: latlng,
+                    draggable: true
+                });
+                document.getElementById('latitude').value = lat;
+                document.getElementById('longitude').value = lng;
+
+                if (infowindow != null) {
+                    infowindow.setContent("<span id='address'><b>" + bds_lang.GoogleMaps.Address + " : </b>" + address + "</span>");
+                    infowindow.open(map, marker);
+                }
+            } else {
+                console.log("Geocode was not successful for the following reason: " + status);
+                if (address.indexOf(',') > 0) {
+                    var add = address.substring(address.indexOf(',') + 1);
+                    showLocation(add);
+                }
+            }
+            google.maps.event.addListener(marker, 'dragstart', function () {
+                if (infowindow != null)
+                    infowindow.close();
+            });
+            google.maps.event.addListener(marker, 'dragend', function () {
+                getAddress(true);
+            });
+        });
+        isMakerDrag = false;
+    } else {
+        alert(bds_lang.GoogleMaps.AddressIncorrect);
+    }
+} // END SHOW LOCATION WITH ADDRESS
+
+// START GETADDRESS WITH DRAGGED MARKER
+function getAddress(makerDrag) {
+    try {
+        var point = marker.getPosition();
+
+        var lat = point.lat();
+        var lng = point.lng();
+        document.getElementById('latitude').value = lat;
+        document.getElementById('longitude').value = lng;
+        var latlng = new google.maps.LatLng(lat, lng);
+        geocoder.geocode({'latLng': latlng}, function (results2, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                if (results2 != null && results2[0] != null) {
+                    getCity(results2);
+
+                    addressReturn = results2[0].formatted_address;
+                    $('#addressInput').val(addressReturn);
+                    if (infowindow != null) {
+                        infowindow.setContent("<span id='address'><b>" + bds_lang.GoogleMaps.Address + " : </b>" + results2[0].formatted_address + "</span>");
+                        infowindow.open(map, marker);
+                    }
+                }
+            } else {
+                console.log("Geocoder failed due to: " + status);
+            }
+        });
+        map.setCenter(point);
+        if (typeof (makerDrag) != 'undefined') {
+            isMakerDrag = makerDrag;
+            // TODO: update address for #addressInput
+
+        }
+    } catch (ex) {
+        console.log(ex);
+    }
+} // END GETADDRESS
