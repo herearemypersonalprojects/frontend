@@ -345,26 +345,26 @@ function getCity(results) {
             var super_var2 = super_var1[j].types;
             for (k = 0; k < super_var2.length; ++k) {
                 //find city
-                if (super_var2[k] == "locality") {
+                if (super_var2[k] == "locality" && $('#locality').val() == "") {
                     //put the city name in the form
                     $('#locality').val(super_var1[j].long_name);
                 }
                 //find county
-                if (super_var2[k] == "country") {
+                if (super_var2[k] == "country" && $('#country').val() == "") {
                     //put the county name in the form
                     $('#country').val(super_var1[j].long_name);
                 }
                 //find State
-                if (super_var2[k] == "postal_code") {
+                if (super_var2[k] == "postal_code" && $('#postal_code').val() == "") {
                     //put the state abbreviation in the form
                     $('#postal_code').val(super_var1[j].short_name);
                 }
                 // street_number 66:  i
-                if (super_var2[k] == "street_number") {
+                if (super_var2[k] == "street_number" && $('#street_number').val() == "") {
                     $('#street_number').val(super_var1[j].short_name);
                 }
 
-                if (super_var2[k] == "route") {
+                if (super_var2[k] == "route" && $('#route').val() == "") {
                     $('#route').val(super_var1[j].short_name);
                 }
 
