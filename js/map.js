@@ -98,11 +98,14 @@ function initialize() {
      getAddress(true);
      });
      */
+    /*
     setTimeout(function () {
         loadPlacesFromCurrentView(map);
     }, 1000);
-
+     */
     placeMarker(paris);
+
+    $("#login-username").focus();
 } // [END initialize]
 
 // START PLACE MARKER
@@ -120,7 +123,7 @@ function placeMarker(location) {
                 infowindow.close();
         });
         google.maps.event.addListener(marker, 'dragend', getAddress);
-        map.setCenter(location);
+        //map.setCenter(location);
         getAddress();
     } catch (ex) {
         console.log(ex);
@@ -167,6 +170,8 @@ function loadPlacesFromCurrentView(map) {
 
 // [START load places with given criteria]
 function loadPlaces(JSONObject) {
+
+
     for (var i = 0; i < displayPlaceController.length; i++)  window.clearInterval(displayPlaceController[i]);
     $.ajax({
         url: "/api/getPlaces",
@@ -517,7 +522,7 @@ function showLocation(address) {
         });
         isMakerDrag = false;
     } else {
-        alert(bds_lang.GoogleMaps.AddressIncorrect);
+        //alert(bds_lang.GoogleMaps.AddressIncorrect);
     }
 } // END SHOW LOCATION WITH ADDRESS
 

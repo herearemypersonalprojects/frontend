@@ -13,6 +13,19 @@
     <!-- JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
+    <!-- BOOTSTRAP -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <!-- BLOCK SCREEN WHILE LOGIN -->
+    <script src="js/jquery.blockUI.js"></script>
+
     <!-- JQUERY UI 
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
@@ -25,12 +38,15 @@
     <script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
     <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/icon.css">
-  
+
     <!-- MY CSS -->
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" type="text/css" href="css/map.css">
     <link rel="stylesheet" type="text/css" href="css/marker.css">
     <link rel="stylesheet" type="text/css" href="css/multiCountries.css">
+
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/login.css">
 
     <!-- MY JAVASCRIPTS -->
     <script src="js/tool.js"></script>
@@ -44,9 +60,13 @@
     <script src="controller/criteria.js"></script>
 
     <script src="js/multiLanguages.js"></script>
+
+    <script src="js/login.js"></script>
 </head>
 <body>
 <div id="map-canvas"></div>
+
+<div id="login-form" style="cursor: default; display: none;" class="centered"></div>
 
 <!-- Select community -->
 <select id="communityCriterion" name="communityCriterion" placeholder="community">
