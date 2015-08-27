@@ -69,10 +69,10 @@ function addNewUser(currentUser) {
 // successful.  See statusChangeCallback() for when this call is made.
 function getFbInfos() {
     $.unblockUI();
-    FB.api('/me', {fields: 'location, hometown, email, name, id, first_name, last_name, age_range, link, gender, locale, timezone, updated_time, verified'}, function (response) {
+    FB.api('/me', {fields: 'email, name, id, first_name, last_name, age_range, link, gender, locale, timezone, updated_time, verified'}, function (response) {
         console.log(response);
-        var city = response.location.name.split(",")[0].trim();
-        var country = response.location.name.split(",")[1].trim();
+        //var city = response.location.name.split(",")[0].trim();
+        //var country = response.location.name.split(",")[1].trim();
         currentUser = {
             "id": response.id,
             "email": response.email,
@@ -80,14 +80,14 @@ function getFbInfos() {
             "name": response.name,
             "firstname": response.first_name,
             "lastname": response.last_name,
-            "city": city,
-            "country": country,
+          //  "city": city,
+          //  "country": country,
             "link": response.link,
             "gender": response.gender,
             "ageRange": response.age_range.min,
             "avatarUrl": "http://graph.facebook.com/" + response.id + "/picture?type=square",
             "language": response.locale,
-            "originalCountry": response.hometown.name.split(",")[1].trim()
+          //  "originalCountry": response.hometown.name.split(",")[1].trim()
         };
         if (isNewUser) {
             addNewUser(currentUser);
@@ -137,7 +137,7 @@ function checkLoginState() {
 function myFacebookLogin() {
     FB.login(function () {
         checkLoginState();
-    }, {scope: 'public_profile,email, user_location, user_hometown'});
+    }, {scope: 'public_profile,email'});
 }
 
 function checkMail() {
