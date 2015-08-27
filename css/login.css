@@ -19,9 +19,14 @@
 }
 
 .input-group-addon {
-    background-color: rgb(50, 118, 177);
+    background-color: #31708f;
     border-color: rgb(40, 94, 142);
     color: rgb(255, 255, 255);
+}
+
+.my-btn {
+    background-color: #31708f;
+    color: white;
 }
 
 .form-control:focus {
