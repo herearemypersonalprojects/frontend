@@ -49,7 +49,6 @@ $(document).ready(function () {
 });
 
 function addNewUser(currentUser) {
-    hideLoginForm();
     // create new user
     $.ajax({
         url: "/api/createUser",
@@ -57,7 +56,7 @@ function addNewUser(currentUser) {
         data: currentUser,
         dataType: 'JSON',
         success: function (data) {
-            console.log("Success to add a new user via Facebook");
+            console.log("Succes to add a new user via Facebook");
         },
         error: function (request, status, error) {
             console.log(request.responseText + ":" + status + ":" + error);
@@ -67,22 +66,11 @@ function addNewUser(currentUser) {
 // Here we run a very simple test of the Graph API after login is
 // successful.  See statusChangeCallback() for when this call is made.
 function getFbInfos() {
-
+    $.unblockUI();
     FB.api('/me', {fields: 'location, hometown, email, name, id, first_name, last_name, age_range, link, gender, locale, timezone, updated_time, verified'}, function (response) {
-
-        if (response.email == 'undefined' || !response.email) {
-            var error = $('#login-alert');
-            error.html('<a onclick="myFacebookLoginNeedEmail();" href="#">Your email is required. Please click here to finish your login.</a>');
-            error.show();
-            $('#facebook-login').addClass('disabled');
-            showLoginForm();
-            return false;
-        } else {
-            hideLoginForm();
-        }
-
-        //var city = response.location.name.split(",")[0].trim();
-        //var country = response.location.name.split(",")[1].trim();
+        console.log(response);
+        var city = response.location.name.split(",")[0].trim();
+        var country = response.location.name.split(",")[1].trim();
         currentUser = {
             "id": response.id,
             "email": response.email,
@@ -90,25 +78,22 @@ function getFbInfos() {
             "name": response.name,
             "firstname": response.first_name,
             "lastname": response.last_name,
-            //"city": city,
-            //"country": country,
+            "city": city,
+            "country": country,
             "link": response.link,
             "gender": response.gender,
             "ageRange": response.age_range.min,
             "avatarUrl": "http://graph.facebook.com/" + response.id + "/picture?type=square",
             "language": response.locale,
-            //"originalCountry": response.hometown.name.split(",")[1].trim()
+            "originalCountry": response.hometown.name.split(",")[1].trim()
         };
-
         if (isNewUser) {
             addNewUser(currentUser);
         } else {
             // check existing user
 
         }
-
     });
-
 }
 
 // This is called with the results from from FB.getLoginStatus().
@@ -122,15 +107,18 @@ function statusChangeCallback(response) {
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
         getFbInfos();
-
     } else if (response.status === 'not_authorized') {
+        $('#loginTitle').html("Sign up");
         // The person is logged into Facebook, but not your app.
         isNewUser = true;
-        showLoginForm();
     } else {
         // The person is not logged into Facebook, so we're not sure if
         // they are logged into this app or not.
-        showLoginForm();
+        $('#loginTitle').html("Log in");
+        var error = $('#login-alert');
+
+        error.html('Facebook has not been open');
+        error.show();
     }
 }
 
@@ -147,16 +135,7 @@ function checkLoginState() {
 function myFacebookLogin() {
     FB.login(function () {
         checkLoginState();
-    }, {scope: 'public_profile, email, user_friends'});
-}
-
-function myFacebookLoginNeedEmail() {
-    FB.login(function () {
-        checkLoginState();
-    }, {
-        scope: 'public_profile, email, user_friends',
-        auth_type: 'rerequest'
-    });
+    }, {scope: 'public_profile,email, user_location, user_hometown'});
 }
 
 function checkMail() {
@@ -174,98 +153,36 @@ function checkMail() {
 }
 
 function login() {
-
     var email = $('#login-email').val();
     var pwd = $('#login-password').val();
+
     var error = $('#login-alert');
     error.show();
     if (!email) {
-        error.html('<a href="#" class="close" data-dismiss="alert">&times;</a><strong>Error!</strong> Xin bạn vui lòng nhập email');
+        error.html('Xin bạn vui lòng nhập email');
         $('#login-email').focus();
         return false;
     }
 
     if (!validateEmail(email)) {
-        error.html('<strong>Error!</strong> Email không hợp lệ');
+        error.html('Xin bạn vui lòng kiểm tra email hợp lệ');
         $('#login-email').focus();
         return false;
     }
 
     if (!pwd) {
         $('#login-password').focus();
-        error.html('<strong>Error!</strong> Xin bạn vui lòng nhập password');
-        return false;
-    }
-
-    if ($('#login-password-repeated').is(":visible") && !$('#login-password-repeated').val()) {
-        $('#login-password-repeated').focus();
-        error.html('<strong>Error!</strong> Xin bạn vui lòng xác nhận password');
-        return false;
-    }
-
-    if ($('#login-password-repeated').is(":visible") && pwd !== $('#login-password-repeated').val()) {
-        $('#login-password-repeated').focus();
-        error.html('<strong>Error!</strong> The passwords must be the same');
+        error.html('Xin bạn vui lòng nhập password');
         return false;
     }
 
     error.hide();
 
+    currentUser = {
+        "email": email,
+        "password": pwd
+    };
+    addNewUser(currentUser);
 
-    if ($('#submit-login').text() === "Sign Up") {
-        currentUser = {
-            "email": email,
-            "password": pwd
-        }
-        addNewUser(currentUser);
-    } else {
-        const login = {
-            "login": email,
-            "password": pwd
-        }
-        $.ajax({
-            url: "/api/signin",
-            type: 'get',
-            data: login,
-            dataType: 'JSON',
-            success: function (data) {
-                console.log(data);
-                if (data.error === "LOGIN_ERROR_EMAIL") {
-                    registerNewUser('The email is not found.');
-                } else if (data.error === "LOGIN_ERROR_PASSWORD") {
-                    registerNewUser('The password is not correct.');
-                } else {
-                    addNewUser(login);
-                }
-            },
-            error: function (request, status, error) {
-                console.log(request.responseText + ":" + status + ":" + error);
-            }
-        });
-    }
-
-
-}
-
-
-function registerNewUser(msg) {
-    var alert = $('#login-alert');
-    alert.removeClass('alert-danger');
-    alert.addClass('alert-info');
-    alert.html(msg + ' Please retype the password to register a new account');
-    alert.show();
-
-    var newpwd = $('#login-password-repeated');
-    newpwd.show();
-    newpwd.focus();
-
-    $('#submit-login').text("Sign Up");
-}
-
-function hideLoginForm() {
-    $("#login-form").removeClass('show');
-}
-
-function showLoginForm() {
-    $("#login-form").addClass('show');
+    $.unblockUI();
 }
