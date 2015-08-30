@@ -235,7 +235,8 @@ function login() {
                 } else if (data.error === "LOGIN_ERROR_PASSWORD") {
                     registerNewUser('The password is not correct.');
                 } else {
-                    addNewUser(login);
+                    // login thanh cong
+                    hideLoginForm();
                 }
             },
             error: function (request, status, error) {
