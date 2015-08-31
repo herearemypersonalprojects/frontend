@@ -61,8 +61,7 @@ table, th, td, span {
 }
 
 #new-place-form {
-    <!--display: none;-->
-    width: 200px;
+
     box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
     background-color: white;
     padding: 10px;

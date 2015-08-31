@@ -2,8 +2,11 @@
 <html>
 <head>
     <title>Vietnam World Map</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- GOOGLE MAP -->
     <script type="text/javascript"
@@ -47,6 +50,7 @@
 
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/sidebar.css">
 
     <!-- MY JAVASCRIPTS -->
     <script src="js/tool.js"></script>
@@ -56,20 +60,26 @@
     <script src="model/placeObject.js"></script>
 
     <script src="js/place.js"></script>
-
     <script src="controller/criteria.js"></script>
-
     <script src="js/multiLanguages.js"></script>
-
     <script src="js/login.js"></script>
+    <script src="js/sidebar.js"></script>
 </head>
 <body>
+
 <div id="map-canvas"></div>
 
-<!-- Select community -->
+<div id="sidebar" class="list-group">
+</div>
+
+
+<!-- Select community
 <select id="communityCriterion" name="communityCriterion" placeholder="community">
     <option value="VN">Việt Nam</option>
 </select>
+-->
+
+<button id="communityCriterion" style="height: 30px"> Phân bổ các nước</button>
 
 <!-- Select city to look at -->
 <select id="cityCriterion" name="cityCriterion" placeholder="city"></select>
@@ -166,6 +176,7 @@
                 <td><input type="file" name="file" id="file" accept="image/*"></td>
             </tr>
             <tr>
+                <input type="hidden" id="userId" name="userId" value="34">
                 <td></td>
                 <td><input class="submit" type="button" id="newPlaceFormSubmit" value="Gửi đi"></td>
 
@@ -175,6 +186,8 @@
 </form>
 
 <div id="login-form" class="modal show" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+
 </body>
 </html>
 

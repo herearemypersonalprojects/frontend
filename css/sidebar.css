@@ -1,0 +1,12 @@
+div.subitem a.list-group-item {
+    padding-left: 30px;
+}
+
+#sidebar {
+    background-color: white;
+    position: absolute;
+    top: 0px;
+    width: 200px;
+    overflow-y: auto;
+    height: 100%;
+}
