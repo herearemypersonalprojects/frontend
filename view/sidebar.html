@@ -2,7 +2,7 @@
     <i class="icon-dashboard"></i> 4,500,000 Việt Kiều
 </a>
 
-<a href="#usa" class="list-group-item" data-parent="#sidebar">
+<a onclick="showLocation('usa');map.setZoom(4);" href="#usa" class="list-group-item" data-parent="#sidebar">
     <i class="icon-group"></i>
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/44px-Flag_of_the_United_States.svg.png"
          alt="Mountain View" style="width:20px;height:12px;">
@@ -26,7 +26,7 @@
     </a>
 
 </div>
-<a href="#campuchia" class="list-group-item" data-parent="#sidebar">
+<a onclick="showLocation('cambodia');map.setZoom(4);" href="#campuchia" class="list-group-item" data-parent="#sidebar">
     <i class="icon-group"></i>
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Flag_of_Laos.svg/44px-Flag_of_Laos.svg.png"
          alt="Mountain View" style="width:20px;height:12px;">
@@ -51,7 +51,7 @@
 
 </div>
 
-<a href="#france" class="list-group-item" data-parent="#sidebar">
+<a onclick="showLocation('France');map.setZoom(4);" href="#france" class="list-group-item" data-parent="#sidebar">
     <i class="icon-group"></i> <img
         src="http://www.eyeshot-av.com/france/wp-content/uploads/2011/06/small_france_flag.gif" alt="Mountain View"
         style="width:20px;height:12px;"> France
@@ -60,17 +60,17 @@
 
 <div id="france" class="list-group subitem collapse">
 
-    <a href="#" class="list-group-item">
-        <i class="icon-caret-right"></i> Users
+    <a onclick="showLocation('Paris,France');map.setZoom((9);" href="#" class="list-group-item">
+        <i class="icon-caret-right"></i> Paris
         <span class="badge bg_danger">0</span>
     </a>
 
-    <a href="#" class="list-group-item">
-        <i class="icon-caret-right"></i> Create User
+    <a onclick="showLocation('Toulouse, France');map.setZoom(9);" href="#" class="list-group-item">
+        <i class="icon-caret-right"></i> Toulouse
     </a>
 
-    <a href="#" class="list-group-item">
-        <i class="icon-caret-right"></i> Create Group
+    <a onclick="showLocation('Nice, France');map.setZoom(9);" href="#" class="list-group-item">
+        <i class="icon-caret-right"></i> Nice
     </a>
 
 </div>
@@ -134,9 +134,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Russia.svg/44px-Flag_of_Russia.svg.png"
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Nga
+    <span class="badge bg_danger">80,000</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -151,9 +153,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/44px-Flag_of_Germany.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Đức
+    <span class="badge bg_danger">137.000</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -168,9 +172,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Flag_of_South_Korea.svg/44px-Flag_of_South_Korea.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Hàn Quốc
+    <span class="badge bg_danger">116,219</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -185,9 +191,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_Czech_Republic.svg/44px-Flag_of_the_Czech_Republic.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Cộng Hoà Séc
+    <span class="badge bg_danger">60,000</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -202,9 +210,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_England_%28bordered%29.svg/44px-Flag_of_England_%28bordered%29.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Anh
+    <span class="badge bg_danger">55,000</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -219,9 +229,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_United_Arab_Emirates.svg/44px-Flag_of_the_United_Arab_Emirates.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Các Tiểu Vương Quốc Ả Rập Thống Nhất
+    <span class="badge bg_danger">20,000</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -236,9 +248,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Flag_of_Japan.svg/44px-Flag_of_Japan.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Nhật Bản
+    <span class="badge bg_danger">41,136</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -253,9 +267,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/44px-Flag_of_the_People%27s_Republic_of_China.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Trung Quốc
+    <span class="badge bg_danger">20,000</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -270,9 +286,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Flag_of_the_Netherlands.svg/44px-Flag_of_the_Netherlands.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Hà Lan
+    <span class="badge bg_danger">18,913</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -287,9 +305,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Norway.svg/44px-Flag_of_Norway.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Na Uy
+    <span class="badge bg_danger">18,333</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -304,9 +324,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Flag_of_Sweden.svg/44px-Flag_of_Sweden.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Thuỵ Điển
+    <span class="badge bg_danger">11,771</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -321,9 +343,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Flag_of_Poland.svg/44px-Flag_of_Poland.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Ba Lan
+    <span class="badge bg_danger">10,000</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -338,9 +362,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_Thailand.svg/44px-Flag_of_Thailand.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Thái Lan
+    <span class="badge bg_danger">10,000-100,000</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -355,9 +381,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Flag_of_Denmark.svg/44px-Flag_of_Denmark.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Đan Mạch
+    <span class="badge bg_danger">8,575</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -372,9 +400,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Switzerland.svg/40px-Flag_of_Switzerland.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Thuỵ Sĩ
+    <span class="badge bg_danger">8,173</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -389,9 +419,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Flag_of_Qatar.svg/44px-Flag_of_Qatar.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Qatar
+    <span class="badge bg_danger">8,000</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -406,9 +438,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Flag_of_Belgium_%28civil%29.svg/44px-Flag_of_Belgium_%28civil%29.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Bỉ
+    <span class="badge bg_danger">7,151</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -423,9 +457,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Flag_of_New_Zealand.svg/44px-Flag_of_New_Zealand.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> NewZealand
+    <span class="badge bg_danger">4,875</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -440,9 +476,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/44px-Flag_of_Ukraine.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Ukraina
+    <span class="badge bg_danger">3,850</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -457,9 +495,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Flag_of_Hungary.svg/44px-Flag_of_Hungary.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Hungary
+    <span class="badge bg_danger">1,020</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -474,9 +514,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Flag_of_Finland_%28bordered%29.svg/44px-Flag_of_Finland_%28bordered%29.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Phần Lan
+    <span class="badge bg_danger">4,000</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -491,9 +533,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Flag_of_Slovakia.svg/44px-Flag_of_Slovakia.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Slovakia
+    <span class="badge bg_danger">3,000</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -508,9 +552,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/44px-Flag_of_Brazil.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Brasil
+    <span class="badge bg_danger">1,000</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -525,9 +571,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Flag_of_Malaysia.svg/44px-Flag_of_Malaysia.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Malaysia
+    <span class="badge bg_danger">100,000</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -542,9 +590,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Pre-IndependenceFlags_of_New_Caledonia.svg/80px-Pre-IndependenceFlags_of_New_Caledonia.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Nouvelle-Calédonie
+    <span class="badge bg_danger">2,327</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -559,9 +609,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Vanuatu.svg/44px-Flag_of_Vanuatu.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Vanuatu
+    <span class="badge bg_danger">600</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -576,9 +628,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Flag_of_Angola.svg/44px-Flag_of_Angola.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Angola
+    <span class="badge bg_danger">45,000</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -593,9 +647,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/1500px-Flag_of_Italy.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Italy
+    <span class="badge bg_danger">1,000</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -610,9 +666,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Flag_of_Cyprus.svg/langfr-275px-Flag_of_Cyprus.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Cộng Hoà Syp
+    <span class="badge bg_danger">6,900</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -627,9 +685,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_Austria.svg/langfr-900px-Flag_of_Austria.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Áo
+    <span class="badge bg_danger">Áo3,400</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -644,9 +704,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/langfr-750px-Flag_of_Spain.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Tây Ban Nha
+    <span class="badge bg_danger">Nha500</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
@@ -661,9 +723,11 @@
     </a>
 
 </div>        <a href="#articles" class="list-group-item" data-parent="#sidebar">
-    <i class="icon-file-text"></i><img src="http://country-flags.net/tiny/Vietnam.png" alt="Mountain View"
-                                       style="width:20px;height:12px;"> Vietnam
-    <span class="badge bg_danger">0</span>
+    <i class="icon-file-text"></i><img
+        src=https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Bulgaria.svg/langfr-1000px-Flag_of_Bulgaria.svg.png
+        alt="Mountain View"
+        style="width:20px;height:12px;"> Bungari
+    <span class="badge bg_danger">1,700</span>
 </a>
 
 <div id="articles" class="list-group subitem collapse">
