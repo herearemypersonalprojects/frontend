@@ -73,11 +73,11 @@
 </div>
 
 
-<!-- Select community
-<select id="communityCriterion" name="communityCriterion" placeholder="community">
+<!-- Select community -->
+<select type="hidden" id="communityCriterion" name="communityCriterion" placeholder="community">
     <option value="VN">Việt Nam</option>
 </select>
--->
+
 
 <button id="communityCriterion" style="height: 30px"> Phân bổ các nước</button>
 
@@ -177,8 +177,11 @@
             </tr>
             <tr>
                 <input type="hidden" id="userId" name="userId" value="34">
+                <input type="hidden" id="id" name="id">
                 <td></td>
                 <td><input class="submit" type="button" id="newPlaceFormSubmit" value="Gửi đi"></td>
+                <td><input onclick="submitForm($('#new-place-form'), true);" class="update" style="display:none"
+                           type="button" id="update" value="Cập nhật"></td>
 
             </tr>
         </table>
